@@ -1,0 +1,2 @@
+# Magic-Tower
+Python project
