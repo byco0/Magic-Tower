@@ -4,10 +4,10 @@ import os
 
 player = None #to be filled
 
-class floor_square():
+class floor_square(pygame.sprite.Sprite):
 
     def __init__(self, image, width, height):
-        pygame.sprite.Sprite.__init__(self)
+        super().__init__()
 
         self.image = pygame.image.load(image)
         self.image = pygame.transform.scale(self.image, (int(width), int(height)))
@@ -20,7 +20,10 @@ class floor_square():
     def draw(self, surface):
         screen.blit(self.image, self.rect[0:2])
 
-class wall(floor_square):
+    def add_to_group(self):
+        pass
+
+class impassable_square(floor_square):
 
     def add_to_group(self):
         COLLISON_TYPE.add(self)
@@ -34,9 +37,14 @@ def draw_floor(level):
         if column == 11:
             column = 0
             row += 1
-        
-        block_objects[key] = floor_square(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
+
+        if level[row][column] in IMPASSABLE_OBJECTS:
+            block_objects[key] = impassable_square(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
+        else:    
+            block_objects[key] = floor_square(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
+            
         block_objects[key].set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
+        block_objects[key].add_to_group()
         block_objects[key].draw(screen)
 
         column += 1

@@ -37,6 +37,8 @@ COLLISON_TYPE = pygame.sprite.Group()
 TILES = {1: IMAGES[3], 'lava': IMAGES[4], 'star': IMAGES[7],
          0: IMAGES[11]}
 
+IMPASSABLE_OBJECTS = [0,'lava','star']
+
 block_objects = {'block_1': '', 'block_2': '', 'block_3': '', 'block_4': '',
                  'block_5': '', 'block_6': '', 'block_7': '', 'block_8': '',
                  'block_9': '', 'block_10': '', 'block_11': '', 'block_12': '',
