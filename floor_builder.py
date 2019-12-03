@@ -2,7 +2,7 @@ import pygame
 from constants import *
 import os
 
-#surf = pygame.Surface((SCREEN_X, SCREEN_Y))
+player = None #to be filled
 
 class floor_square():
 
@@ -10,6 +10,7 @@ class floor_square():
         pygame.sprite.Sprite.__init__(self)
 
         self.image = pygame.image.load(image)
+        self.image = pygame.transform.scale(self.image, (int(width), int(height)))
 
         self.rect = self.image.get_rect()
 
@@ -19,11 +20,29 @@ class floor_square():
     def draw(self, surface):
         screen.blit(self.image, self.rect[0:2])
 
+class wall(floor_square):
+
+    def add_to_group(self):
+        COLLISON_TYPE.add(self)
+        
+
+def draw_floor(level):
+    row = 0
+    column = 0
+
+    for key in block_objects:
+        if column == 11:
+            column = 0
+            row += 1
+        
+        block_objects[key] = floor_square(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
+        block_objects[key].set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
+        block_objects[key].draw(screen)
+
+        column += 1
     
 #test code
 pygame.init()
-screen = pygame.display.set_mode((800,600))
-test = floor_square(IMAGES[0], SCREEN_X/12, SCREEN_Y/12)
-test.set_position(60,70)
-test.draw(screen)
+screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
+draw_floor(Floor1)      
 pygame.display.flip()
