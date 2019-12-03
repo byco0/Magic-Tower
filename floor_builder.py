@@ -17,7 +17,13 @@ class floor_square():
         self.rect = self.rect.move(x, y)
 
     def draw(self, surface):
-        surface.blit(self.image, self.rect)
+        screen.blit(self.image, self.rect[0:2])
 
     
-
+#test code
+pygame.init()
+screen = pygame.display.set_mode((800,600))
+test = floor_square(IMAGES[0], SCREEN_X/12, SCREEN_Y/12)
+test.set_position(60,70)
+test.draw(screen)
+pygame.display.flip()
