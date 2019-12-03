@@ -2,10 +2,20 @@
 """
 This is a file to store all base values for the game.
 """
-import os.path
+import os
 
 DIR = os.path.dirname(__file__)
-IMG_DIR = os.path.join(DIR, 'images')
+IMG_DIR = os.path.join(DIR, 'Map')
+IMAGES = os.listdir(IMG_DIR)
+
+temp = []
+
+for x in IMAGES:
+    temp.append(os.path.join(IMG_DIR, x))
+
+IMAGES = temp
+
+WHITE = (255, 255, 255)
 
 
 SCREEN_X = 800
