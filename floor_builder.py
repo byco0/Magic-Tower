@@ -7,7 +7,7 @@ player = None #to be filled
 class floor_square(pygame.sprite.Sprite):
 
     def __init__(self, image, width, height):
-        super().__init__()
+        pygame.sprite.Sprite.__init__(self)
 
         self.image = pygame.image.load(image)
         self.image = pygame.transform.scale(self.image, (int(width), int(height)))
