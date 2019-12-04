@@ -72,6 +72,9 @@ class Player(GeneralSquare):
                         pass
                         
             self.rect[0:2] = old_position
+
+        elif self.rect[0] < int(SCREEN_X/13) or self.rect.right > int(SCREEN_X/13*12) or self.rect[1] < int(SCREEN_Y/13) or self.rect.bottom > int(SCREEN_Y/13*12):
+            self.rect[0:2] = old_position
         
 
 def init_floor(level, struct):
@@ -125,6 +128,22 @@ def init_overlay(overlay, struct):
         column += 1
 
     return struct
+
+def draw_outside(struct, surf):
+    row = 0
+    column = 0
+    wall = pygame.image.load(MAP_IMGS[10])
+    wall = pygame.transform.scale(wall, (int(SCREEN_X/13), int(SCREEN_Y/13)))
+
+    for i in range(169):
+        if column == 13:
+            column = 0
+            row += 1
+
+        if struct[row][column] == 1:
+            surf.blit(wall, (SCREEN_X/13*column, SCREEN_Y/13*row))
+
+        column += 1
 
 def draw_floor(struct, surf):
     

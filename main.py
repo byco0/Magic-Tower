@@ -33,6 +33,7 @@ pygame.display.flip()
 def play_level(floor):   
     running = True
     add_all_to_group(world_floors[floor])
+    draw_outside(OUTSIDE, screen)
 
     while running:
         #draw_floor(first_floor, screen)
