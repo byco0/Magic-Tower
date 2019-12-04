@@ -10,6 +10,7 @@ class GeneralSquare(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (int(width), int(height)))
 
         self.rect = self.image.get_rect()
+        self.rect[2:] = (self.rect[2]-1, self.rect[3]-1)
 
     def set_position(self, x, y):
         self.rect = self.rect.move(x, y)
@@ -23,6 +24,7 @@ class GeneralSquare(pygame.sprite.Sprite):
 class Player(GeneralSquare):
 
     def update(self, pressed_key):
+        old_position = self.rect[0:2]
         if pressed_key == K_UP:
             self.rect.move_ip(0, -SCREEN_Y/13)
         if pressed_key == K_DOWN:
@@ -31,13 +33,16 @@ class Player(GeneralSquare):
             self.rect.move_ip(SCREEN_X/13, 0)
         if pressed_key == K_LEFT:
             self.rect.move_ip(-SCREEN_X/13, 0)
+            
+        if pygame.sprite.spritecollideany(self, COLLISION_TYPE):
+            self.rect[0:2] = old_position
 
 
 
 class ImpassableSquare(GeneralSquare):
 
     def add_to_group(self):
-        COLLISON_TYPE.add(self)
+        COLLISION_TYPE.add(self)
         
 
 def draw_floor(level):
@@ -68,8 +73,6 @@ def draw_player(level):
             column = 0
             row += 1
         if level[row][column] == 'init':
-            print('found')
-            print((SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row))
             player.set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
             player.draw(screen)
         column += 1
@@ -81,6 +84,7 @@ player = Player(PLAYER_IMGS[0], SCREEN_X/13, SCREEN_Y/13)
 draw_floor(FLOOR1)
 draw_player(floor1_overlay)
 pygame.display.flip()
+
 
 running = True
 
