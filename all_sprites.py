@@ -15,8 +15,8 @@ class GeneralSquare(pygame.sprite.Sprite):
     def set_position(self, x, y):
         self.rect = self.rect.move(int(x), int(y))
 
-    def draw(self, surface):
-        screen.blit(self.image, self.rect[0:2])
+    def draw(self, surf):
+        surf.blit(self.image, self.rect[0:2])
 
     def add_to_group(self):
         pass
@@ -60,14 +60,11 @@ class Player(GeneralSquare):
 
         if pygame.sprite.spritecollideany(self, COLLISION_TYPE):
             if pygame.sprite.spritecollideany(self, DOOR_TYPE):
-                #print('stage1')
                 for key in overlay:
                     try:
                         if overlay[key].door_type in DOORS:
-                            #print('stage2')
                             if pygame.sprite.collide_rect(self, overlay[key]):
                                 if self.stats[DOOR_KEY[overlay[key].door_type]] > 0:
-                                    #print('stage3')
                                     self.stats[DOOR_KEY[overlay[key].door_type]] = self.stats[DOOR_KEY[overlay[key].door_type]] - 1
                                     overlay[key].kill()
                                     overlay[key] = ''
@@ -98,7 +95,7 @@ def init_floor(level, struct):
 
     return struct
 
-def draw_player(level):
+def init_player(player, level, surf):
     row = 0
     column = 0
     for i in range(1, 111):
@@ -107,7 +104,7 @@ def draw_player(level):
             row += 1
         if level[row][column] == 'init':
             player.set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
-            player.draw(screen)
+            player.draw(surf)
         column += 1
 
 def init_overlay(overlay, struct):
@@ -130,43 +127,15 @@ def init_overlay(overlay, struct):
 
     return struct
 
-def draw_floor(struct):
+def draw_floor(struct, surf):
     
     for key in struct:
-        struct[key].draw(screen)
+        struct[key].draw(surf)
 
-def draw_overlay(struct):
+def draw_overlay(struct, surf):
     
     for key in struct:
         try:
-            struct[key].draw(screen)
+            struct[key].draw(surf)
         except:
             pass
-    
-#test code
-pygame.init()
-screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
-player = Player(PLAYER_IMGS[0], SCREEN_X/13, SCREEN_Y/13)
-first_floor = init_floor(FLOOR1, block_objects.copy())
-first_overlay = init_overlay(floor1_overlay, overlay_objects.copy())
-draw_player(floor1_overlay)
-pygame.display.flip()
-
-
-running = True
-
-while running:
-    draw_floor(first_floor)
-    draw_overlay(first_overlay)
-    player.draw(screen)
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            running = False
-        elif event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                running = False
-            else:
-                player.update(event.key, first_overlay)
-    pygame.display.flip()
-
-pygame.quit()
