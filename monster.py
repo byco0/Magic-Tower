@@ -8,11 +8,19 @@ BORDER = 20
 VELOCITY = 10
 FRAMERATE = 50
 
-class Monster:
+class Monster(pygame.sprite.Sprite):
     def __init__(self,x,y):
-        img = pygame.image.load(os.path.join('Monster','{}.png'.format(self.picture)))
-        screen.blit(img,(x,y))
-
+        # call the parent class (Sprite) constructor
+        super().__init__()      
+        
+        # load monster's image
+        self.image = pygame.image.load(os.path.join('Monster','{}.png'.format(self.picture)))
+        
+        # assign monster's position
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        
 class GreenSlime(Monster):
     picture = 0
     hp = 50
@@ -356,8 +364,17 @@ bgColor = pygame.Color("white")
 # filling the background
 screen.fill(bgColor)
 
-# example for monster
-Boss2(0,0)
+# initialize monsters 
+b1=Boss1(0,0)
+b2=Boss2(0,100)
+
+# this will be a list that will contain all the monsters we intend to use in our game.
+all_monster = pygame.sprite.Group()
+all_monster.add(b1)
+all_monster.add(b2)
+
+# draw all monsters
+all_monster.draw(screen)
 
 while True:
     e = pygame.event.poll()
