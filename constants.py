@@ -72,6 +72,9 @@ DOOR_KEY = {'RD': 'RK', 'BD': 'BK', 'YD': 'YK'}
 #impassable object types
 IMPASSABLE_OBJECTS = [0,'lava','star']
 
+#overlay object types
+OVERLAY_OBJECT_TYPES = {'RD': 'Door', 'BD': 'Door', 'YD': 'Door'}
+
 
 #data structure for map
 block_objects = {'block_1': '', 'block_2': '', 'block_3': '', 'block_4': '',
