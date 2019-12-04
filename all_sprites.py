@@ -23,7 +23,14 @@ class GeneralSquare(pygame.sprite.Sprite):
 class Player(generalsquare):
 
     def update(self, pressed_key):
-        if pressed_key
+        if pressed_key == K_UP:
+            self.rect.move_ip(0, -SCREEN_Y/13)
+        if pressed_key == K_DOWN:
+            self.rect.move_ip(0, SCREEN_Y/13)
+        if pressed_key == K_RIGHT:
+            self.rect.move_ip(-SCREEN_X/13, 0)
+        if pressed_key == K_LEFT:
+            self.rect.move_ip(SCREEN_X/13, 0)
 
 
 
@@ -52,11 +59,25 @@ def draw_floor(level):
         block_objects[key].draw(screen)
 
         column += 1
+
+def draw_player(level):
+    row = 0
+    column = 0
+    for i in range(1, 122):
+        if column == 11:
+            column = 0
+            row += 1
+        column += 1
+
+    if level[row][column] == 'init':
+        player.set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
     
 #test code
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
-draw_floor(Floor1)      
+player = Player(
+draw_floor(Floor1)
+draw_player(Floor1)
 pygame.display.flip()
 
 running = True
@@ -68,6 +89,9 @@ while running:
     elif event.type == KEYDOWN:
         if event.key == K_ESCAPE:
             running = False
+        else:
+            draw_floor(Floor1)
+            player.update(event.key)
     pygame.display.flip()
 
 pygame.quit()
