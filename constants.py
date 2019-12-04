@@ -101,7 +101,7 @@ block_objects = {'block_1': '', 'block_2': '', 'block_3': '', 'block_4': '',
 
 
 #floor and overlay data
-Floor1 = [[0,'star','star','star','star',1,'star','star','star','star',0],
+FLOOR1 = [[0,'star','star','star','star',1,'star','star','star','star',0],
           [0,'star','star','star','star',1,'star','star','star','star',0],
           [0,'star','star','star','star',1,'star','star','star','star',0],
           [0,'star','star','star','star',1,'star','star','star','star',0],
@@ -113,7 +113,7 @@ Floor1 = [[0,'star','star','star','star',1,'star','star','star','star',0],
           ['lava','lava','lava','lava','lava',1,'lava','lava','lava','lava','lava'],
           ['lava','lava','lava','lava','lava',1,'lava','lava','lava','lava','lava']]
 
-Floor1_overlay = [[0,0,0,0,0,'stair2',0,0,0,0,0],
+floor1_overlay = [[0,0,0,0,0,'stair2',0,0,0,0,0],
                   [0,0,0,0,0,'init',0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0,0],
@@ -125,7 +125,7 @@ Floor1_overlay = [[0,0,0,0,0,'stair2',0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0,0],
                   [0,0,0,0,0,'init',0,0,0,0,0]]
 
-Floor2 = [[1,1,1,1,1,1,1,1,1,1,1],
+FLOOR2 = [[1,1,1,1,1,1,1,1,1,1,1],
           [0,0,0,0,0,0,0,0,0,0,1],
           [1,1,1,1,1,0,1,1,1,0,1],
           [1,1,1,0,1,0,1,1,1,0,1],
@@ -137,7 +137,7 @@ Floor2 = [[1,1,1,1,1,1,1,1,1,1,1],
           [1,1,1,0,1,1,1,0,1,1,1],
           [1,1,1,0,1,1,1,0,1,1,1]]
 
-Floor2_overlay = [['stair3','init','YK',0,0,0,0,0,0,0,0],
+floor2_overlay = [['stair3','init','YK',0,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0,0],
                   ['i4',0,'m3',0,0,0,'i4','YK','i4',0,0],
                   ['YK','m3','i0',0,0,0,'i4','YK','i4',0,0],
