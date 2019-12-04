@@ -13,7 +13,7 @@ class GeneralSquare(pygame.sprite.Sprite):
         self.rect[2:] = (self.rect[2]-1, self.rect[3]-1)
 
     def set_position(self, x, y):
-        self.rect = self.rect.move(x, y)
+        self.rect = self.rect.move(int(x), int(y))
 
     def draw(self, surface):
         screen.blit(self.image, self.rect[0:2])
@@ -45,16 +45,18 @@ class Door(GeneralSquare):
 
 class Player(GeneralSquare):
 
+    stats = BASE_STATS.copy()
+
     def update(self, pressed_key, overlay):
         old_position = self.rect[0:2]
         if pressed_key == K_UP:
-            self.rect.move_ip(0, -SCREEN_Y/13)
+            self.rect.move_ip(0, int(-SCREEN_Y/13))
         if pressed_key == K_DOWN:
-            self.rect.move_ip(0, SCREEN_Y/13)
+            self.rect.move_ip(0, int(SCREEN_Y/13))
         if pressed_key == K_RIGHT:
-            self.rect.move_ip(SCREEN_X/13, 0)
+            self.rect.move_ip(int(SCREEN_X/13), 0)
         if pressed_key == K_LEFT:
-            self.rect.move_ip(-SCREEN_X/13, 0)
+            self.rect.move_ip(int(-SCREEN_X/13), 0)
 
         if pygame.sprite.spritecollideany(self, COLLISION_TYPE):
             if pygame.sprite.spritecollideany(self, DOOR_TYPE):
@@ -64,9 +66,11 @@ class Player(GeneralSquare):
                         if overlay[key].door_type in DOORS:
                             #print('stage2')
                             if pygame.sprite.collide_rect(self, overlay[key]):
-                                #print('stage3')
-                                overlay[key].kill()
-                                overlay[key] = ''
+                                if self.stats[DOOR_KEY[overlay[key].door_type]] > 0:
+                                    #print('stage3')
+                                    self.stats[DOOR_KEY[overlay[key].door_type]] = self.stats[DOOR_KEY[overlay[key].door_type]] - 1
+                                    overlay[key].kill()
+                                    overlay[key] = ''
                     except:
                         pass
                         
