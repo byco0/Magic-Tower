@@ -89,7 +89,6 @@ def init_floor(level, struct):
             struct[key] = GeneralSquare(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
             
         struct[key].set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
-        struct[key].add_to_group()
 
         column += 1
 
@@ -139,3 +138,11 @@ def draw_overlay(struct, surf):
             struct[key].draw(surf)
         except:
             pass
+
+def add_all_to_group(objects):
+    for key in objects:
+        objects[key].add_to_group()
+
+def remove_all_from_group(objects):
+    for key in objects:
+        objects[key].kill()
