@@ -5,23 +5,44 @@ This is a file to store all base values for the game.
 import os
 import pygame
 
+#import some keys from pygame.locals for easier access
+from pygame.locals import (
+    K_UP,
+    K_DOWN,
+    K_LEFT,
+    K_RIGHT,
+    K_ESCAPE,
+    KEYDOWN,
+    QUIT,
+)
+
+
+#get images
 DIR = os.path.dirname(__file__)
-IMG_DIR = os.path.join(DIR, 'Map')
-IMAGES = os.listdir(IMG_DIR)
+MAP_DIR = os.path.join(DIR, 'Map')
+PLAYER_DIR = os.path.join(DIR, 'Player')
 
-temp = []
+MAP_IMGS = []
 
-for x in IMAGES:
-    temp.append(os.path.join(IMG_DIR, x))
+for x in os.listdir(MAP_DIR):
+    MAP_IMGS.append(os.path.join(MAP_DIR, x))
 
-IMAGES = temp
+PLAYER_IMGS = []
 
+for x in os.listdir(PLAYER_DIR):
+    PLAYER_IMGS.append(os.path.join(PLAYER_DIR, x))
+
+    
+#set some colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
+
+#set the screen size
 SCREEN_X = 800
 SCREEN_Y = 600
 
+#set base stats
 HP = 1000
 ATT = 10
 DEF = 10
@@ -31,14 +52,21 @@ RK = 1
 BK = 1
 YK = 1
 
+#create sprite groups
 ENEMIES = pygame.sprite.Group()
 COLLISON_TYPE = pygame.sprite.Group()
+PLAYER = pygame.sprite.Group()
 
-TILES = {1: IMAGES[3], 'lava': IMAGES[4], 'star': IMAGES[7],
-         0: IMAGES[11]}
+#dictionary of key to file locations
+TILES = {1: MAP_IMGS[3], 'lava': MAP_IMGS[4], 'star': MAP_IMGS[7],
+         0: MAP_IMGS[11]}
 
+
+#impassable object types
 IMPASSABLE_OBJECTS = [0,'lava','star']
 
+
+#data structure for map
 block_objects = {'block_1': '', 'block_2': '', 'block_3': '', 'block_4': '',
                  'block_5': '', 'block_6': '', 'block_7': '', 'block_8': '',
                  'block_9': '', 'block_10': '', 'block_11': '', 'block_12': '',
@@ -71,6 +99,8 @@ block_objects = {'block_1': '', 'block_2': '', 'block_3': '', 'block_4': '',
                  'block_117': '', 'block_118': '', 'block_119': '', 'block_120': '',
                  'block_121': ''} 
 
+
+#floor and overlay data
 Floor1 = [[0,'star','star','star','star',1,'star','star','star','star',0],
           [0,'star','star','star','star',1,'star','star','star','star',0],
           [0,'star','star','star','star',1,'star','star','star','star',0],
@@ -120,13 +150,13 @@ Floor2_overlay = [['stair3','init','YK',0,0,0,0,0,0,0,0],
                   ['i4','i42','YK',0,0,'stair1',0,0,'YK','YK','YK']]
 
 empty_overlay = [[0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0]]
+                 [0,0,0,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0,0,0]]

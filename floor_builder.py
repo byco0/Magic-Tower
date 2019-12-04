@@ -1,10 +1,7 @@
 import pygame
 from constants import *
-import os
 
-player = None #to be filled
-
-class floor_square(pygame.sprite.Sprite):
+class GeneralSquare(pygame.sprite.Sprite):
 
     def __init__(self, image, width, height):
         pygame.sprite.Sprite.__init__(self)
@@ -23,7 +20,14 @@ class floor_square(pygame.sprite.Sprite):
     def add_to_group(self):
         pass
 
-class impassable_square(floor_square):
+class Player(generalsquare):
+
+    def update(self, pressed_key):
+        if pressed_key
+
+
+
+class ImpassableSquare(GeneralSquare):
 
     def add_to_group(self):
         COLLISON_TYPE.add(self)
@@ -39,9 +43,9 @@ def draw_floor(level):
             row += 1
 
         if level[row][column] in IMPASSABLE_OBJECTS:
-            block_objects[key] = impassable_square(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
+            block_objects[key] = ImpassableSquare(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
         else:    
-            block_objects[key] = floor_square(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
+            block_objects[key] = GeneralSquare(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
             
         block_objects[key].set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
         block_objects[key].add_to_group()
@@ -54,3 +58,16 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
 draw_floor(Floor1)      
 pygame.display.flip()
+
+running = True
+
+while running:
+    for event in pygame.event.get()
+    if event.type == QUIT:
+        running = False
+    elif event.type == KEYDOWN:
+        if event.key == K_ESCAPE:
+            running = False
+    pygame.display.flip()
+
+pygame.quit()
