@@ -21,9 +21,31 @@ class GeneralSquare(pygame.sprite.Sprite):
     def add_to_group(self):
         pass
 
+class ImpassableSquare(GeneralSquare):
+
+    def add_to_group(self):
+        COLLISION_TYPE.add(self)
+
+class Door(GeneralSquare):
+
+    def __init__(self, image, width, height, door_type):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = pygame.image.load(image)
+        self.image = pygame.transform.scale(self.image, (int(width), int(height)))
+
+        self.rect = self.image.get_rect()
+        self.rect[2:] = (self.rect[2]-1, self.rect[3]-1)
+
+        self.door_type = door_type
+
+    def add_to_group(self):
+        COLLISION_TYPE.add(self)
+        DOOR_TYPE.add(self)
+
 class Player(GeneralSquare):
 
-    def update(self, pressed_key):
+    def update(self, pressed_key, overlay):
         old_position = self.rect[0:2]
         if pressed_key == K_UP:
             self.rect.move_ip(0, -SCREEN_Y/13)
@@ -33,37 +55,44 @@ class Player(GeneralSquare):
             self.rect.move_ip(SCREEN_X/13, 0)
         if pressed_key == K_LEFT:
             self.rect.move_ip(-SCREEN_X/13, 0)
-            
+
         if pygame.sprite.spritecollideany(self, COLLISION_TYPE):
+            if pygame.sprite.spritecollideany(self, DOOR_TYPE):
+                #print('stage1')
+                for key in overlay:
+                    try:
+                        if overlay[key].door_type in DOORS:
+                            #print('stage2')
+                            if pygame.sprite.collide_rect(self, overlay[key]):
+                                #print('stage3')
+                                overlay[key].kill()
+                                overlay[key] = ''
+                    except:
+                        pass
+                        
             self.rect[0:2] = old_position
-
-
-
-class ImpassableSquare(GeneralSquare):
-
-    def add_to_group(self):
-        COLLISION_TYPE.add(self)
         
 
-def draw_floor(level):
+def init_floor(level, struct):
     row = 0
     column = 0
 
-    for key in block_objects:
+    for key in struct:
         if column == 11:
             column = 0
             row += 1
 
         if level[row][column] in IMPASSABLE_OBJECTS:
-            block_objects[key] = ImpassableSquare(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
+            struct[key] = ImpassableSquare(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
         else:    
-            block_objects[key] = GeneralSquare(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
+            struct[key] = GeneralSquare(TILES[level[row][column]], SCREEN_X/13, SCREEN_Y/13)
             
-        block_objects[key].set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
-        block_objects[key].add_to_group()
-        block_objects[key].draw(screen)
+        struct[key].set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
+        struct[key].add_to_group()
 
         column += 1
+
+    return struct
 
 def draw_player(level):
     row = 0
@@ -76,12 +105,46 @@ def draw_player(level):
             player.set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
             player.draw(screen)
         column += 1
+
+def init_overlay(overlay, struct):
+    row = 0
+    column = 0
+
+    for key in struct:
+        if column == 11:
+            column = 0
+            row += 1
+
+        try:
+            struct[key] = Door(DOORS[overlay[row][column]], SCREEN_X/13, SCREEN_Y/13, overlay[row][column])
+            struct[key].set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
+            struct[key].add_to_group()
+        except:    
+            pass
+
+        column += 1
+
+    return struct
+
+def draw_floor(struct):
+    
+    for key in struct:
+        struct[key].draw(screen)
+
+def draw_overlay(struct):
+    
+    for key in struct:
+        try:
+            struct[key].draw(screen)
+        except:
+            pass
     
 #test code
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
 player = Player(PLAYER_IMGS[0], SCREEN_X/13, SCREEN_Y/13)
-draw_floor(FLOOR1)
+first_floor = init_floor(FLOOR1, block_objects.copy())
+first_overlay = init_overlay(floor1_overlay, overlay_objects.copy())
 draw_player(floor1_overlay)
 pygame.display.flip()
 
@@ -89,6 +152,9 @@ pygame.display.flip()
 running = True
 
 while running:
+    draw_floor(first_floor)
+    draw_overlay(first_overlay)
+    player.draw(screen)
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
@@ -96,9 +162,7 @@ while running:
             if event.key == K_ESCAPE:
                 running = False
             else:
-                draw_floor(FLOOR1)
-                player.update(event.key)
-                player.draw(screen)
+                player.update(event.key, first_overlay)
     pygame.display.flip()
 
 pygame.quit()
