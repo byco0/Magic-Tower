@@ -54,7 +54,7 @@ YK = 1
 
 #create sprite groups
 ENEMIES = pygame.sprite.Group()
-COLLISON_TYPE = pygame.sprite.Group()
+COLLISION_TYPE = pygame.sprite.Group()
 PLAYER = pygame.sprite.Group()
 
 #dictionary of key to file locations
