@@ -43,6 +43,8 @@ SCREEN_X = 800
 SCREEN_Y = 600
 
 #set base stats
+BASE_STATS = {'HP': 1000, 'ATT': 10, 'DEF': 10, 'GOLD': 0,
+         'EXP': 0, 'RK': 1, 'BK': 1, 'YK': 1}
 HP = 1000
 ATT = 10
 DEF = 10
@@ -63,6 +65,9 @@ TILES = {1: MAP_IMGS[3], 'lava': MAP_IMGS[4], 'star': MAP_IMGS[7],
          0: MAP_IMGS[11]}
 
 DOORS = {'YD': MAP_IMGS[-1]}
+
+#door/key pairs
+DOOR_KEY = {'RD': 'RK', 'BD': 'BK', 'YD': 'YK'}
 
 #impassable object types
 IMPASSABLE_OBJECTS = [0,'lava','star']
