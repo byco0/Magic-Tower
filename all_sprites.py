@@ -7,10 +7,10 @@ class GeneralSquare(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = pygame.image.load(image)
-        self.image = pygame.transform.scale(self.image, (int(width), int(height)))
+        self.image = pygame.transform.scale(self.image, (int(width)+1, int(height)+1))
 
         self.rect = self.image.get_rect()
-        self.rect[2:] = (self.rect[2]-1, self.rect[3]-1)
+        self.rect[2:] = (self.rect[2]-2, self.rect[3]-2)
 
     def set_position(self, x, y):
         self.rect = self.rect.move(int(x), int(y))
@@ -133,7 +133,7 @@ def draw_outside(struct, surf):
     row = 0
     column = 0
     wall = pygame.image.load(MAP_IMGS[10])
-    wall = pygame.transform.scale(wall, (int(SCREEN_X/13), int(SCREEN_Y/13)))
+    wall = pygame.transform.scale(wall, (int(SCREEN_X/13)+1, int(SCREEN_Y/13)+1))
 
     for i in range(169):
         if column == 13:
