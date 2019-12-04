@@ -20,7 +20,7 @@ class GeneralSquare(pygame.sprite.Sprite):
     def add_to_group(self):
         pass
 
-class Player(generalsquare):
+class Player(GeneralSquare):
 
     def update(self, pressed_key):
         if pressed_key == K_UP:
@@ -28,9 +28,9 @@ class Player(generalsquare):
         if pressed_key == K_DOWN:
             self.rect.move_ip(0, SCREEN_Y/13)
         if pressed_key == K_RIGHT:
-            self.rect.move_ip(-SCREEN_X/13, 0)
-        if pressed_key == K_LEFT:
             self.rect.move_ip(SCREEN_X/13, 0)
+        if pressed_key == K_LEFT:
+            self.rect.move_ip(-SCREEN_X/13, 0)
 
 
 
@@ -63,35 +63,38 @@ def draw_floor(level):
 def draw_player(level):
     row = 0
     column = 0
-    for i in range(1, 122):
+    for i in range(1, 111):
         if column == 11:
             column = 0
             row += 1
+        if level[row][column] == 'init':
+            print('found')
+            print((SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row))
+            player.set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
+            player.draw(screen)
         column += 1
-
-    if level[row][column] == 'init':
-        player.set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
     
 #test code
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
-player = Player(
-draw_floor(Floor1)
-draw_player(Floor1)
+player = Player(PLAYER_IMGS[0], SCREEN_X/13, SCREEN_Y/13)
+draw_floor(FLOOR1)
+draw_player(floor1_overlay)
 pygame.display.flip()
 
 running = True
 
 while running:
-    for event in pygame.event.get()
-    if event.type == QUIT:
-        running = False
-    elif event.type == KEYDOWN:
-        if event.key == K_ESCAPE:
+    for event in pygame.event.get():
+        if event.type == QUIT:
             running = False
-        else:
-            draw_floor(Floor1)
-            player.update(event.key)
+        elif event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                running = False
+            else:
+                draw_floor(FLOOR1)
+                player.update(event.key)
+                player.draw(screen)
     pygame.display.flip()
 
 pygame.quit()
