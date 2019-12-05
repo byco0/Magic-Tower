@@ -3,7 +3,7 @@ from constants import *
 from all_sprites import *
 
 class GameState():
-    floor = 0
+    floor = 1
         
 world_floors = {}
 
@@ -24,7 +24,7 @@ player = Player(PLAYER_IMGS[0], SCREEN_X/13, SCREEN_Y/13)
 #first_overlay = init_overlay(floor1_overlay, overlay_objects.copy())
 #second_floor = init_floor(FLOOR2, block_objects.copy())
 overlay = init_overlay(floor_overlays[state.floor], overlay_objects.copy())
-init_player(player, floor1_overlay, screen)
+init_player(player, floor_overlays[state.floor], screen)
 pygame.display.flip()
 
 
@@ -49,7 +49,7 @@ def play_level(floor):
                     player.update(event.key, overlay)
         pygame.display.flip()
 
-    remove_all_from_group(world_floors[floor])
+    #remove_all_from_group(world_floors[floor])
     #remove_all_from_group(second_floor)
 
 running = True

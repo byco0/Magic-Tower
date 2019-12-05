@@ -10,7 +10,7 @@ class GeneralSquare(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (int(width)+1, int(height)+1))
 
         self.rect = self.image.get_rect()
-        self.rect[2:] = (self.rect[2]-2, self.rect[3]-2)
+        self.rect[2:] = (self.rect[2]-5, self.rect[3]-3)
 
     def set_position(self, x, y):
         self.rect = self.rect.move(int(x), int(y))
@@ -35,7 +35,7 @@ class Door(GeneralSquare):
         self.image = pygame.transform.scale(self.image, (int(width), int(height)))
 
         self.rect = self.image.get_rect()
-        self.rect[2:] = (self.rect[2]-1, self.rect[3]-1)
+        self.rect[2:] = (self.rect[2]-5, self.rect[3]-3)
 
         self.door_type = door_type
 
