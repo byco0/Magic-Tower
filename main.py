@@ -49,7 +49,7 @@ def play_level(floor):
                     player.update(event.key, overlay)
         pygame.display.flip()
 
-    #remove_all_from_group(world_floors[floor])
+    remove_all_from_group(world_floors[floor])
     #remove_all_from_group(second_floor)
 
 running = True
