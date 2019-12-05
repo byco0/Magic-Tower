@@ -202,38 +202,74 @@ FLOOR17 = [['star','star','star','star','star',1,1,'star','star','star','star','
            ['star','star','star','star','star','star','star','star','star','star','star','star'],
            ['star','star','star','star','star','star','star','star','star','star','star','star']]
 
+FLOOR18 = [['star',1,1,1,1,1,1,1,1,1,1],
+           ['star',1,'star','star','star','star','star','star','star','star',1],
+           ['star',1,'star',1,1,1,1,1,1,1],
+           ['star',1,'star',1,'star','star','star','star','star','star','star'],
+           ['star',1,'star',1,'star',1,1,1,1,1,'star'],
+           ['star',1,'star',1,1,1,'star','star','star',1,'star'],
+           ['star',1,'star','star','star','star','star',1,1,1,'star'],
+           ['star',1,'star','star','star',1,'star',1,'star','star','star'],
+           ['star',1,1,1,1,1,'star',1,1,1,1],
+           ['star','star','star','star','star','star','star','star','star','star',1],
+           [1,1,1,1,1,1,1,1,1,1,1]]
 
+FLOOR19 = [['star','star','star','star','star','star','star','star','star','star','star'],
+           ['star','star','star','star','star','star','star','star','star','star','star'],
+           ['star','star','star','star','star','star','star','star','star','star','star'],
+           ['star','star','star',0,0,0,0,'star','star','star','star'],
+           ['star','star','star',0,0,1,0,0,'star','star','star'],
+           ['star','star','star',0,0,1,0,0,'star','star','star'],
+           ['star','star','star',0,0,1,0,0,'star','star','star'],
+           ['star','star','star','star',0,1,0,'star','star','star','star'],
+           ['star','star','star','star','star','star','star','star','star','star','star'],
+           ['star','star','star','star','star','star','star','star','star','star','star'],
+           [1,1,1,1,1,1,1,1,1,1,1]]
+
+FLOOR20 =  [[1,1,1,1,1,1,1,1,1,1,1],
+            [1,'star',1,'star','star','star','star','star',1,'star',1],
+            [1,'star',1,'star','star','star','star','star',1,'star',1],
+            [1,'star',1,'star','star',1,'star','star',1,'star',1],
+            [1,'star',1,'star','star',1,'star','star',1,'star',1],
+            [1,'star',1,'star','star',1,'star','star',1,'star',1],
+            [1,'star',1,'star','star',1,'star','star',1,'star',1],
+            [1,'star',1,'star','star',1,'star','star',1,'star',1],
+            [1,'star','star','star','star',1,'star','star','star','star',1],
+            [1,'star','star','star','star',1,'star','star','star','star',1],
+            [1,1,1,1,1,1,1,1,1,1,1]]
+
+FLOOR21 = [[1,1,1,1,1,1,1,1,1,1,1],
+           [1,'star',1,'star',1,'star',1,'star',1,'star',1],
+           ['star',1,1,1,1,1,1,1,1,1,'star'],
+           [1,'star',1,'star',1,1,1,'star',1,'star',1],
+           [1,1,1,1,1,1,1,1,1,1,1],
+           [1,'star',1,'star',1,'star',1,'star',1,'star',1],
+           [1,1,1,1,1,1,1,1,1,1,1],
+           [1,'star',1,'star',1,1,1,'star',1,'star',1],
+           ['star',1,1,1,1,1,1,1,1,1,'star'],
+           [1,'star',1,'star',1,1,1,'star',1,'star',1],
+           [1,1,1,1,1,1,1,1,1,1,1]]
+            
+           
           
 #floor and overlay data
 OUTSIDE = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
- [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
- [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
- [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
- [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
- [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
- [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
- [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
- [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
- [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
- [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
- [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
- [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+           [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
 
-FLOOR9 = ''
-FLOOR10 = ''
-FLOOR11 = ''
-FLOOR12 = ''
-FLOOR13 = ''
-FLOOR14 = ''
-FLOOR15 = ''
-FLOOR16 = ''
-FLOOR17 = ''
-FLOOR18 = ''
-FLOOR19 = ''
-FLOOR20 = ''
 
 #floors
 FLOORS = {0: FLOOR1, 1: FLOOR2, 2: FLOOR3, 3: FLOOR4, 4: FLOOR5, 5: FLOOR6, 6: FLOOR7, 7: FLOOR8, 8: FLOOR9,
           9: FLOOR10, 10: FLOOR11, 11: FLOOR12, 12: FLOOR13, 13: FLOOR14, 14: FLOOR15, 15: FLOOR16, 16: FLOOR17,
-          17: FLOOR18, 18: FLOOR19, 19: FLOOR20}
+          17: FLOOR18, 18: FLOOR19, 19: FLOOR20, 20: FLOOR21}
