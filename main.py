@@ -3,9 +3,6 @@ from constants import *
 from all_sprites import *
 
 
-#failed code due to all sprite positions for all levels being registered in collison detection
-
-
 class GameState():
     floor = 0
         
