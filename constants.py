@@ -229,6 +229,47 @@ floor2_overlay = [['stair3','init','YK',0,0,0,0,0,0,0,0],
                   ['i4','i5','YK',0,'RK','init',0,0,'YK','m8','BK'],
                   ['i4','i42','YK',0,0,'stair1',0,0,'YK','YK','YK']]
 
+floor3_overlay = []
+
+floor4_overlay = []
+
+floor5_overlay = []
+
+floor6_overlay = []
+
+floor7_overlay = []
+
+floor8_overlay = []
+
+floor9_overlay = []
+
+floor10_overlay = []
+
+floor11_overlay = []
+
+floor12_overlay = []
+
+floor13_overlay = []
+
+floor14_overlay = []
+
+floor15_overlay = []
+
+floor16_overlay = []
+
+floor17_overlay = []
+
+floor18_overlay = []
+
+floor19_overlay = []
+
+floor20_overlay = []
+
+floor_overlays = {0: floor1_overlay, 1: floor2_overlay, 2: floor3_overlay, 3: floor4_overlay, 4: floor5_overlay,
+                  5: floor6_overlay, 6: floor7_overlay, 7: floor8_overlay, 8: floor9_overlay, 9: floor10_overlay,
+                  10: floor11_overlay, 11: floor12_overlay, 12: floor13_overlay, 13: floor14_overlay, 14: floor15_overlay,
+                  15: floor16_overlay, 16: floor17_overlay, 17: floor18_overlay, 18: floor19_overlay, 19: floor20_overlay}
+
 empty_overlay = [[0,0,0,0,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,0,0,0,0],

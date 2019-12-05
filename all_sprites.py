@@ -59,6 +59,7 @@ class Player(GeneralSquare):
             self.rect.move_ip(int(-SCREEN_X/13), 0)
 
         if pygame.sprite.spritecollideany(self, COLLISION_TYPE):
+            print('collision')
             if pygame.sprite.spritecollideany(self, DOOR_TYPE):
                 for key in overlay:
                     try:
