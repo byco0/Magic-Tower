@@ -1,9 +1,10 @@
 import pygame
 from constants import *
 from all_sprites import *
+from general_functions import *
 
 class GameState():
-    floor = 1
+    floor = 0
         
 world_floors = {}
 
