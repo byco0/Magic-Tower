@@ -155,7 +155,54 @@ FLOOR13 = [[1,1,0,1,1,1,1,1,0,1,1],
            [0,0,0,0,0,1,0,0,0,0,0],
            [1,1,1,1,1,1,1,1,1,1,1]]
 
-FLOOR14 = 
+FLOOR14 = [[1,1,1,1,1,1,1,0,1,1,1],
+           [1,0,0,0,0,0,1,0,1,0,1],
+           [1,0,1,1,1,1,1,0,1,0,1],
+           [1,0,1,0,0,0,1,0,1,0,1],
+           [1,0,1,1,1,0,1,0,1,0,1],
+           [1,0,1,1,1,0,1,0,1,0,1],
+           [1,0,1,1,1,0,1,0,1,0,1],
+           [1,0,0,0,0,0,1,0,1,0,1],
+           [0,0,1,0,1,0,0,0,0,0,1],
+           [1,1,1,1,1,1,0,1,1,1,1]]
+
+FLOOR15 = [[0,1,1,1,1,1,1,1,1,1,0],
+           [0,1,1,0,0,0,0,0,1,1,0],
+           [0,1,0,0,0,0,0,0,0,1,0],
+           [0,1,0,0,0,1,0,0,0,1,0],
+           [0,1,0,0,0,1,0,0,0,1,0],
+           [0,1,1,0,0,1,0,0,1,1,0],
+           [0,1,'star','star',0,1,0,'star','star',1,0],
+           [0,1,'star','star',0,1,0,'star','star',1,0],
+           [0,1,'star','star',0,1,0,'star','star',1,0],
+           [0,1,1,1,1,1,1,1,1,1,0],
+           [0,0,0,0,0,1,0,0,0,0,0]]
+
+FLOOR16 = [[1,1,1,1,1,1,1,1,1,1,1],
+           [1,'star','star','star','star','star','star','star','star','star',1],
+           [1,'star','star',0,0,0,0,0,'star','star',1],
+           [1,'star','star',0,1,0,1,0,'star','star',1],
+           [1,'star','star',0,1,0,1,0,'star','star',1],
+           [1,'star','star',0,1,0,1,0,'star','star',1],
+           [1,'star','star',0,1,0,1,0,'star','star',1],
+           [1,'star','star',0,1,1,1,0,'star','star',1],
+           [1,'star','star',0,0,1,0,0,'star','star',1],
+           [1,'star','star','star','star',1,'star','star','star','star','star',1],
+           [1,1,1,1,1,1,1,1,1,1,1]]
+
+FLOOR17 = [['star','star','star','star','star',1,1,'star','star','star','star','star'],
+           ['star','star','star','star','star',1,'star','star','star','star','star','star'],
+           ['star','star','star','star','star',1,'star','star','star','star','star','star'],
+           ['star','star','star','star',0,1,0,'star','star','star','star','star'],
+           ['star','star','star',0,1,1,0,0,'star','star','star','star'],
+           ['star','star','star',0,0,1,0,0,'star','star','star','star'],
+           ['star','star','star',0,0,1,0,0,'star','star','star','star'],
+           ['star','star','star',0,0,1,0,0,'star','star','star','star'],
+           ['star','star','star','star',0,0,0,'star','star','star','star','star'],
+           ['star','star','star','star','star','star','star','star','star','star','star','star'],
+           ['star','star','star','star','star','star','star','star','star','star','star','star']]
+
+
           
 #floor and overlay data
 OUTSIDE = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
