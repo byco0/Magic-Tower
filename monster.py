@@ -1,384 +1,410 @@
-import pygame
-import os
+from constants import *
 
-# global variables
-WIDTH = 800
-HEIGHT = 400
-BORDER = 20
-VELOCITY = 10
-FRAMERATE = 50
 
-class Monster(pygame.sprite.Sprite):
-    def __init__(self,x,y):
-        # call the parent class (Sprite) constructor
-        super().__init__()      
-        
-        # load monster's image
-        self.image = pygame.image.load(os.path.join('Monster','{}.png'.format(self.picture)))
-        
-        # assign monster's position
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        
+class Monster(GeneralSquare):
+    ATK2 = 0
+    ATK3 = 0
+
+    def add_to_group(self):
+        COLLISION_TYPE.add(self)
+        MONSTER_TYPE.add(self)
+
+
 class GreenSlime(Monster):
-    picture = 0
-    hp = 50
-    atk = 20
-    def_ = 1
-    gold = 1
-    exp = 1
+    ID = 0
+    HP = 50
+    ATK = 20
+    DEF = 1
+    GOLD = 1
+    EXP = 1
+
 
 class RedSlime(Monster):
-    picture = 1
-    hp = 70
-    atk = 15
-    def_ = 2
-    gold = 2
-    exp = 2
+    ID = 1
+    HP = 70
+    ATK = 15
+    DEF = 2
+    GOLD = 2
+    EXP = 2
+
 
 class SmallBat(Monster):
-    picture = 2
-    hp = 100
-    atk = 20
-    def_ = 5
-    gold = 3
-    exp = 3
+    ID = 2
+    HP = 100
+    ATK = 20
+    DEF = 5
+    GOLD = 3
+    EXP = 3
+
 
 class Skeleton(Monster):
-    picture = 3
-    hp = 110
-    atk = 25
-    def_ = 5
-    gold = 5
-    exp = 4
-    
+    ID = 3
+    HP = 110
+    ATK = 25
+    DEF = 5
+    GOLD = 5
+    EXP = 4
+
+
 class BlackSlime(Monster):
-    picture = 4
-    hp = 200
-    atk = 35
-    def_ = 10
-    gold = 5
-    exp = 5
+    ID = 4
+    HP = 200
+    ATK = 35
+    DEF = 10
+    GOLD = 5
+    EXP = 5
+
 
 class SkeletonSoldier(Monster):
-    picture = 5
-    hp = 150
-    atk = 40
-    def_ = 20
-    gold = 8
-    exp = 6
+    ID = 5
+    HP = 150
+    ATK = 40
+    DEF = 20
+    GOLD = 8
+    EXP = 6
+
 
 class JuniorWizard(Monster):
-    picture = 6
-    hp = 125
-    atk = 50
-    def_ = 25
-    gold = 10
-    exp = 7
-    
+    ID = 6
+    HP = 125
+    ATK = 50
+    DEF = 25
+    GOLD = 10
+    EXP = 7
+
+
 class BigBat(Monster):
-    picture = 7					
-    hp = 150
-    atk = 65
-    def_ = 30
-    gold = 10
-    exp = 8
-    
+    ID = 7					
+    HP = 150
+    ATK = 65
+    DEF = 30
+    GOLD = 10
+    EXP = 8
+
+
 class Ogre(Monster):
-    picture = 8				
-    hp = 300
-    atk = 75
-    def_ = 45
-    gold = 13
-    exp = 10
+    ID = 8				
+    HP = 300
+    ATK = 75
+    DEF = 45
+    GOLD = 13
+    EXP = 10
+
 
 class SkeletonCaptain(Monster):
-    picture = 9					
-    hp = 400
-    atk = 90
-    def_ = 50
-    gold = 15
-    exp = 12
-    
+    ID = 9					
+    HP = 400
+    ATK = 90
+    DEF = 50
+    GOLD = 15
+    EXP = 12
+
+
 class RockMonster(Monster):
-    picture = 10					
-    hp = 500
-    atk = 115
-    def_ = 65
-    gold = 15
-    exp = 15
-    
+    ID = 10					
+    HP = 500
+    ATK = 115
+    DEF = 65
+    GOLD = 15
+    EXP = 15
+
+
 class Magician(Monster):
-    picture = 11					
-    hp = 250
-    atk = 120+100
-    def_ = 70
-    gold = 20
-    exp = 17
-    
+    ID = 11					
+    HP = 250
+    ATK = 120
+    ATK2 = 100
+    DEF = 70
+    GOLD = 20
+    EXP = 17
+
+
 class JuniorGuard(Monster):
-    picture = 12					
-    hp = 450
-    atk = 150
-    def_ = 90
-    gold = 22
-    exp = 19
+    ID = 12					
+    HP = 450
+    ATK = 150
+    DEF = 90
+    GOLD = 22
+    EXP = 19
+
 
 class RedBat(Monster):
-    picture = 13					
-    hp = 550
-    atk = 160
-    def_ = 90
-    gold = 25
-    exp = 20
+    ID = 13					
+    HP = 550
+    ATK = 160
+    DEF = 90
+    GOLD = 25
+    EXP = 20
+
 
 class SeniorWizard(Monster):
-    picture = 14					
-    hp = 100
-    atk = 200
-    def_ = 110
-    gold = 30
-    exp = 25
+    ID = 14					
+    HP = 100
+    ATK = 200
+    DEF = 110
+    GOLD = 30
+    EXP = 25
+
 
 class SlimeKing(Monster):
-    picture = 15					
-    hp = 700
-    atk = 250
-    def_ = 125
-    gold = 32
-    exp = 30
+    ID = 15					
+    HP = 700
+    ATK = 250
+    DEF = 125
+    GOLD = 32
+    EXP = 30
+
 
 class WhiteWarrior(Monster):
-    picture = 16					
-    hp = 1300
-    atk = 150+hp/4
-    def_ = 150
-    gold = 40
-    exp = 35
+    ID = 16					
+    HP = 1300
+    ATK = 150
+    ATK3 = 1/4
+    DEF = 150
+    GOLD = 40
+    EXP = 35
 
-class GoldKnight(Monster):
-    picture = 17					
-    hp = 850
-    atk = 350
-    def_ = 200
-    gold = 45
-    exp = 40
+
+class GOLDKnight(Monster):
+    ID = 17					
+    HP = 850
+    ATK = 350
+    DEF = 200
+    GOLD = 45
+    EXP = 40
+
 
 class RedMagician(Monster):
-    picture = 18					
-    hp = 500
-    atk = 400+300
-    def_ = 260
-    gold = 47
-    exp = 45
+    ID = 18					
+    HP = 500
+    ATK = 400
+    ATK2 = 300
+    DEF = 260
+    GOLD = 47
+    EXP = 45
+
 
 class OgreSoldier(Monster):
-    picture = 19					
-    hp = 900
-    atk = 450
-    def_ = 330
-    gold = 50
-    exp = 50
+    ID = 19					
+    HP = 900
+    ATK = 450
+    DEF = 330
+    GOLD = 50
+    EXP = 50
+
 
 class GhostGuard(Monster):
-    picture = 20					
-    hp = 1250
-    atk = 500
-    def_ = 400
-    gold = 55
-    exp = 55
+    ID = 20					
+    HP = 1250
+    ATK = 500
+    DEF = 400
+    GOLD = 55
+    EXP = 55
+
 
 class SeniorGuard(Monster):
-    picture = 21					
-    hp = 1500
-    atk = 560
-    def_ = 460
-    gold = 60
-    exp = 60
+    ID = 21					
+    HP = 1500
+    ATK = 560
+    DEF = 460
+    GOLD = 60
+    EXP = 60
+
 
 class Swordsman(Monster):
-    picture = 22					
-    hp = 1200
-    atk = 620
-    def_ = 520
-    gold = 65
-    exp = 75
+    ID = 22					
+    HP = 1200
+    ATK = 620
+    DEF = 520
+    GOLD = 65
+    EXP = 75
+
 
 class GhostWarrior(Monster):
-    picture = 23					
-    hp = 2000
-    atk = 680
-    def_ = 590
-    gold = 70
-    exp = 65
+    ID = 23					
+    HP = 2000
+    ATK = 680
+    DEF = 590
+    GOLD = 70
+    EXP = 65
+
 
 class RedKnight(Monster):
-    picture = 24					
-    hp = 900
-    atk = 750
-    def_ = 650
-    gold = 77
-    exp = 70
+    ID = 24
+    HP = 900
+    ATK = 750
+    DEF = 650
+    GOLD = 77
+    EXP = 70
+
 
 class GhostMagician(Monster):
-    picture = 25					
-    hp = 1500
-    atk = 830+hp/3
-    def_ = 730
-    gold = 80
-    exp = 70
-    
-class GhostMagicianPlus(Monster):
-    picture = 25				
-    hp = 2000
-    atk = 1106+hp/3
-    def_ = 973
-    gold = 106
-    exp = 93
+    ID = 25
+    HP = 1500
+    ATK = 830
+    ATK3 = 1/3
+    DEF = 730
+    GOLD = 80
+    EXP = 70
 
-class GhostMagicianPlusPlus(Monster):
-    picture = 25					
-    hp = 3000
-    atk = 2212+hp/3
-    def_ = 1946
-    gold = 132
-    exp = 116   
+
+class GhostMagician2(Monster):
+    ID = 25
+    HP = 2000
+    ATK = 1106
+    ATK3 = 1/3
+    DEF = 973
+    GOLD = 106
+    EXP = 93
+
+
+class GhostMagician3(Monster):
+    ID = 25
+    HP = 3000
+    ATK = 2212
+    ATK3 = 1/3
+    DEF = 1946
+    GOLD = 132
+    EXP = 116
+
 
 class GhostKnight(Monster):
-    picture = 26					
-    hp = 2500
-    atk = 900
-    def_ = 800
-    gold = 84
-    exp = 75
-    
-class GhostKnightPlus(Monster):
-    picture = 26					
-    hp = 3333
-    atk = 1200
-    def_ = 1133
-    gold = 112
-    exp = 100
+    ID = 26
+    HP = 2500
+    ATK = 900
+    DEF = 800
+    GOLD = 84
+    EXP = 75
+
+
+class GhostKnight2(Monster):
+    ID = 26
+    HP = 3333
+    ATK = 1200
+    DEF = 1133
+    GOLD = 112
+    EXP = 100
+
 
 class ShadowWarrior(Monster):
-    picture = 27					
-    hp = 3100
-    atk = 1150
-    def_ = 1050
-    gold = 92
-    exp = 80   
-    
+    ID = 27
+    HP = 3100
+    ATK = 1150
+    DEF = 1050
+    GOLD = 92
+    EXP = 80   
+
+
 class BlackWarrior(Monster):
-    picture = 28					
-    hp = 1200
-    atk = 980
-    def_ = 900
-    gold = 88
-    exp = 75
-    
-class BlackWarriorPlus(Monster):
-    picture = 28					
-    hp = 1600
-    atk = 1306
-    def_ = 1200
-    gold = 117
-    exp = 100
+    ID = 28					
+    HP = 1200
+    ATK = 980
+    DEF = 900
+    GOLD = 88
+    EXP = 75
 
-class BlackWarriorPlusPlus(Monster):
-    picture = 28					
-    hp = 2400
-    atk = 2612
-    def_ = 2400
-    gold = 146
-    exp = 125 
-    
+
+class BlackWarrior2(Monster):
+    ID = 28					
+    HP = 1600
+    ATK = 1306
+    DEF = 1200
+    GOLD = 117
+    EXP = 100
+
+
+class BlackWarrior3(Monster):
+    ID = 28
+    HP = 2400
+    ATK = 2612
+    DEF = 2400
+    GOLD = 146
+    EXP = 125 
+
+
 class RedDevil(Monster):
-    picture = 29					
-    hp = 15000
-    atk = 1000
-    def_ = 1000
-    gold = 100
-    exp = 100
-    
-class RedDevilPlus(Monster):
-    picture = 29					
-    hp = 20000
-    atk = 1333
-    def_ = 1333
-    gold = 133
-    exp = 133
+    ID = 29
+    HP = 15000
+    ATK = 1000
+    DEF = 1000
+    GOLD = 100
+    EXP = 100
 
-class RedDevilPlusPlus(Monster):
-    picture = 29					
-    hp = 30000
-    atk = 2666
-    def_ = 2666
-    gold = 166
-    exp = 166  
-    
+
+class RedDevil2(Monster):
+    ID = 29
+    HP = 20000
+    ATK = 1333
+    DEF = 1333
+    GOLD = 133
+    EXP = 133
+
+
+class RedDevil3(Monster):
+    ID = 29
+    HP = 30000
+    ATK = 2666
+    DEF = 2666
+    GOLD = 166
+    EXP = 166  
+
+
 class Vampire(Monster):
-    picture = 30					
-    hp = 30000
-    atk = 1700
-    def_ = 1500
-    gold = 150
-    exp = 120
-    
-class VampirePlus(Monster):
-    picture = 30					
-    hp = 45000
-    atk = 2550
-    def_ = 2250
-    gold = 312
-    exp = 275
+    ID = 30
+    HP = 30000
+    ATK = 1700
+    DEF = 1500
+    GOLD = 150
+    EXP = 120
 
-class VampirePlusPlus(Monster):
-    picture = 30					
-    hp = 60000
-    atk = 3400
-    def_ = 3000
-    gold = 390
-    exp = 343  
-    
+
+class Vampire2(Monster):
+    ID = 30
+    HP = 45000
+    ATK = 2550
+    DEF = 2250
+    GOLD = 312
+    EXP = 275
+
+
+class Vampire3(Monster):
+    ID = 30
+    HP = 60000
+    ATK = 3400
+    DEF = 3000
+    GOLD = 390
+    EXP = 343  
+
+
 class Boss1(Monster):
-    picture = 31					
-    hp = 99999
-    atk = 5000
-    def_ = 4000
-    gold = 0
-    exp = 0
-    
+    ID = 31
+    HP = 99999
+    ATK = 5000
+    DEF = 4000
+    GOLD = 0
+    EXP = 0
+
+
 class Boss2(Monster):
-    picture = 32					
-    hp = 99999
-    atk = 9999
-    def_ = 5000
-    gold = 0
-    exp = 0
-    
-# start drawing our scenario:
-pygame.init()
-screen = pygame.display.set_mode((WIDTH,HEIGHT))
-bgColor = pygame.Color("white")
-# filling the background
-screen.fill(bgColor)
+    ID = 32
+    HP = 99999
+    ATK = 9999
+    DEF = 5000
+    GOLD = 0
+    EXP = 0
 
-# initialize monsters 
-b1=Boss1(0,0)
-b2=Boss2(0,100)
 
-# this will be a list that will contain all the monsters we intend to use in our game.
-all_monster = pygame.sprite.Group()
-all_monster.add(b1)
-all_monster.add(b2)
+def get_monster(obj):
+    # set monsters list
+    MONSTER_LIST = [GreenSlime('Monster', SCREEN_X / 13, SCREEN_Y / 13),
+                RedSlime('Monster', SCREEN_X / 13, SCREEN_Y / 13),
+                SmallBat('Monster', SCREEN_X / 13, SCREEN_Y / 13),
+                Skeleton('Monster', SCREEN_X / 13, SCREEN_Y / 13),
+                BlackSlime('Monster', SCREEN_X / 13, SCREEN_Y / 13),
+                SkeletonSoldier('Monster', SCREEN_X / 13, SCREEN_Y / 13),
+                JuniorWizard('Monster', SCREEN_X / 13, SCREEN_Y / 13),
+                BigBat('Monster', SCREEN_X / 13, SCREEN_Y / 13),
+                Ogre('Monster', SCREEN_X / 13, SCREEN_Y / 13),
+                SkeletonCaptain('Monster', SCREEN_X / 13, SCREEN_Y / 13)]
 
-# draw all monsters
-all_monster.draw(screen)
-
-while True:
-    e = pygame.event.poll()
-    if e.type == pygame.QUIT:
-        break
-    pygame.display.flip()
-pygame.quit() 
+    return MONSTER_LIST[obj]
