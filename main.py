@@ -126,10 +126,6 @@ def remove_all_from_group(objects):
             pass
 
 
-def draw_stats(stats, surf):
-    pass
-
-
 def fetch_floors():
     floors = {}
     for key in FLOORS:
@@ -145,11 +141,25 @@ def fetch_overlays(player):
         
     return overlays
 
+def draw_stats(player, width, height):
+    surf = pygame.Surface((width, height))
+    font = pygame.font.Font(None, 26)
+    new_x = width/4
+    new_y = height/14*2
+    for key in player.STATE:
+        state_text = font.render('{}: {}'.format(key, player.STATE[key]), True, WHITE)
+        surf.blit(state_text, (new_x, new_y-state_text.get_height()))
+        new_y += height/14
+        
+    return surf
+
+pygame.init()
+pygame.font.init()
 player = Player('Player', SCREEN_X / 13, SCREEN_Y / 13)
 world_floors = fetch_floors()
 world_overlays = fetch_overlays(player)
-pygame.init()
-screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
+screen = pygame.display.set_mode((int(SCREEN_X+SCREEN_X/4), SCREEN_Y))
+surf1 = pygame.Surface((SCREEN_X, SCREEN_Y))
 #overlay = init_overlay(floor_overlays[player.FLOOR - 1], overlay_objects.copy(), player.FLOOR - 1)
 init_player(player, floor_overlays[player.FLOOR - 1], 1)
 add_all_to_group(world_floors[player.FLOOR - 1])
@@ -157,10 +167,12 @@ add_all_to_group(world_overlays[player.FLOOR - 1])
 running = True
 
 while running:
-    draw_floor(world_floors[player.FLOOR - 1], screen)
-    draw_overlay(world_overlays[player.FLOOR - 1], screen)
-    draw_outside(OUTSIDE, screen)
-    player.draw(screen)
+    draw_floor(world_floors[player.FLOOR - 1], surf1)
+    draw_overlay(world_overlays[player.FLOOR - 1], surf1)
+    draw_outside(OUTSIDE, surf1)
+    player.draw(surf1)
+    screen.blit(surf1, (SCREEN_X/4,0))
+    screen.blit(draw_stats(player, SCREEN_X/4, SCREEN_Y), (0,0))
     pygame.display.flip()
     temp = player.FLOOR - 1
     for event in pygame.event.get():
