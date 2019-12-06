@@ -45,22 +45,40 @@ class Door(Map):
         COLLISION_TYPE.add(self)
         DOOR_TYPE.add(self)
 
-
 class YellowDoor(Door):
     ID = 'Yellow Door'
-
 
 class BlueDoor(Door):
     ID = 'Blue Door'
 
-
 class RedDoor(Door):
     ID = 'Red Door'
-
 
 class MagicDoor(Door):
     ID = 'Magic Door'
 
+class Item(GeneralSquare):
+    def __init__(self, image, width, height, type):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = pygame.image.load(image)
+        self.image = pygame.transform.scale(self.image, (int(width), int(height)))
+
+        self.rect = self.image.get_rect()
+        self.rect[2:] = (self.rect[2]-5, self.rect[3]-3)
+        self.type = type
+
+class Key(Item):
+    def add_to_group(self):
+        KEY_TYPE.add(self)
+
+class NPC(Item):
+    def add_to_group(self):
+        NPC_TYPE.add(self)
+
+class OtherItem(Item):
+    def add_to_group(self):
+        ITEM_TYPE.add(self)
 
 # data structure for map
 block_objects = {'block_1': '', 'block_2': '', 'block_3': '', 'block_4': '',

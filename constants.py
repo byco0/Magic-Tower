@@ -47,3 +47,24 @@ MONSTER_TYPE = pygame.sprite.Group()
 ITEM_TYPE = pygame.sprite.Group()
 NPC_TYPE = pygame.sprite.Group()
 PLAYER = pygame.sprite.Group()
+KEY_TYPE = pygame.sprite.Group()
+
+#get images
+DIR = os.path.dirname(__file__)
+ITEM_DIR = os.path.join(DIR,'Item')
+NPC_DIR = os.path.join(DIR,'NPC')
+
+ITEM_IMGS = []
+
+for x in os.listdir(ITEM_DIR):
+    ITEM_IMGS.append(os.path.join(ITEM_DIR, x))
+
+NPC_IMGS = []
+
+for x in os.listdir(NPC_DIR):
+    NPC_IMGS.append(os.path.join(NPC_DIR, x))
+
+#dictionary of key to file locations
+KEYS = {'YK': ITEM_IMGS[3], 'BK': ITEM_IMGS[4], 'RK': ITEM_IMGS[5]}
+ITEMS = {'i0': ITEM_IMGS[0], 'i1': ITEM_IMGS[1], 'i4': ITEM_IMGS[18], 'i5': ITEM_IMGS[25], 'i42': ITEM_IMGS[20]  }
+NPCS = {'fairy': NPC_IMGS[1]}

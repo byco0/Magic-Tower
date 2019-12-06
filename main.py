@@ -13,7 +13,6 @@ def init_floor(level, struct):
         if column == 11:
             column = 0
             row += 1
-
         if level[row][column] == 0:
             struct[key] = Wall('Map', SCREEN_X / 13, SCREEN_Y / 13)
         elif level[row][column] == 1:
@@ -39,7 +38,6 @@ def init_overlay(level, struct, floorNum):
             row += 1
 
         obj = level[row][column]
-
         try:
             int(obj)
         except:
@@ -65,6 +63,18 @@ def init_overlay(level, struct, floorNum):
             elif obj == 'RD':
                 struct[key] = RedDoor('Map', SCREEN_X / 13, SCREEN_Y / 13)
                 struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+                struct[key].add_to_group()
+            elif obj[1] == 'K':
+                struct[key] = Key(KEYS[obj], SCREEN_X/13, SCREEN_Y/13,obj)
+                struct[key].set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
+                struct[key].add_to_group()
+            elif obj[0] == 'i' :
+                struct[key] = OtherItem(ITEMS[obj], SCREEN_X/13, SCREEN_Y/13,obj)
+                struct[key].set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
+                struct[key].add_to_group()
+            elif obj[0] == 'f':
+                struct[key] = NPC(NPCS[obj], SCREEN_X/13, SCREEN_Y/13,obj)
+                struct[key].set_position(SCREEN_X/13+SCREEN_X/13*column, SCREEN_Y/13+SCREEN_Y/13*row)
                 struct[key].add_to_group()
 
         column += 1
