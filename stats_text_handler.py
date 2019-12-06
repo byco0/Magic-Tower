@@ -1,4 +1,10 @@
-def draw_stats(player, surf):
+import pygame
+
+pygame.init()
+pygame.font.init()
+
+def draw_stats(player):
+    pygame
     font = pygame.font.Font(None, 26)
     x = 100
     y = 75
