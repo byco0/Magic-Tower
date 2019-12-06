@@ -3,8 +3,8 @@ import pygame
 pygame.init()
 pygame.font.init()
 
-def draw_stats(player):
-    pygame
+def draw_stats(player, x, y):
+    surf = pygame.Surface((x, y))
     font = pygame.font.Font(None, 26)
     x = 100
     y = 75
