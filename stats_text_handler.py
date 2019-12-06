@@ -1,4 +1,5 @@
 def draw_stats(player, surf):
+    font = pygame.font.Font(None, 26)
     x = 100
     y = 75
     for key in player.stats:
@@ -7,4 +8,3 @@ def draw_stats(player, surf):
         y += 60
         
     return surf
-
