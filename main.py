@@ -133,14 +133,23 @@ def draw_stats(stats, surf):
 
 
 def fetch_floors():
+    floors = {}
     for key in FLOORS:
+        print(key)
+        floors[key] = init_floor(FLOORS[key], block_objects.copy())
+    return floors
+
+def fetch_overlays():
+    overlays = {}
+    for key in floor_overlays:
         if key > 1:
             break
-        world_floors[key] = init_floor(FLOORS[key], block_objects.copy())
+        overlays[key] = init_floor(FLOORS[key], block_objects.copy())
+        
+    return overlays
 
-
-world_floors = {}
-fetch_floors()
+world_floors = fetch_floors()
+world_overlays = fetch_overlays()
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
 player = Player('Player', SCREEN_X / 13, SCREEN_Y / 13)
