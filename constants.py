@@ -37,17 +37,17 @@ BLACK = (0, 0, 0)
 GREY = (64, 64, 64)
 
 # set the screen constants
-DISPLAY_SIZE_X = 1024
-DISPLAY_SIZE_Y = 720
+DISPLAY_SIZE_X = 1920
+DISPLAY_SIZE_Y = 1080
 
 SCREEN_X = int(DISPLAY_SIZE_X/5*4)
-SCREEN_Y = int(DISPLAY_SIZE_Y)
+SCREEN_Y = DISPLAY_SIZE_Y
 screen = pygame.display.set_mode((int(DISPLAY_SIZE_X), DISPLAY_SIZE_Y))
 
 # set the monster popup screen size
-POPUP_X = 900
-POPUP_Y = 300
-AVATAR = 100
+POPUP_X = SCREEN_X
+POPUP_Y = SCREEN_Y//2
+AVATAR = SCREEN_Y//6
 
 # create sprite groups
 COLLISION_TYPE = pygame.sprite.Group()
