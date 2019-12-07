@@ -144,7 +144,7 @@ def fetch_overlays(player):
 def draw_stats(player, width, height):
     surf = pygame.Surface((width, height))
     font = pygame.font.Font(None, 26)
-    new_x = width/4
+    new_x = width/2
     new_y = height/14*2
     for key in player.STATE:
         state_text = font.render('{}: {}'.format(key, player.STATE[key]), True, WHITE)
@@ -157,7 +157,17 @@ def draw_stats(player, width, height):
         img = pygame.transform.scale(img, (int(SCREEN_X/13+1), int(SCREEN_Y/13+1)))
         surf.blit(img, (new_x-width/8, new_y-img.get_height()/2))
         new_y += height/14
-        
+
+    wall2 = pygame.image.load(os.path.join('Map', 'Wall2.png'))
+    wall2 = pygame.transform.scale(wall2, (int(SCREEN_X / 13) + 1, int(SCREEN_Y / 13) + 1))
+    y1 = 0
+    y2 = int(SCREEN_Y/13*12)
+    for x in range(4):
+         surf.blit(wall2, (SCREEN_X/13*x, y1))
+         surf.blit(wall2, (SCREEN_X/13*x, y2))
+    x = 0
+    for y in range(1,12):
+        surf.blit(wall2, (x, SCREEN_Y/13*y))
     return surf
 
 
@@ -169,7 +179,6 @@ world_floors = fetch_floors()
 world_overlays = fetch_overlays(player)
 
 surf1 = pygame.Surface((SCREEN_X, SCREEN_Y))
-#overlay = init_overlay(floor_overlays[player.FLOOR - 1], overlay_objects.copy(), player.FLOOR - 1)
 init_player(player, floor_overlays[player.FLOOR - 1], 1)
 add_all_to_group(world_floors[player.FLOOR - 1])
 add_all_to_group(world_overlays[player.FLOOR - 1])
