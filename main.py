@@ -150,6 +150,10 @@ def draw_stats(player, width, height):
         state_text = font.render('{}: {}'.format(key, player.STATE[key]), True, WHITE)
         surf.blit(state_text, (new_x, new_y-state_text.get_height()))
         new_y += height/14
+    for key in player.KEY_COLLECTION:
+        state_text = font.render('{}: {}'.format(key, player.KEY_COLLECTION[key]), True, WHITE)
+        surf.blit(state_text, (new_x, new_y-state_text.get_height()))
+        new_y += height/14
         
     return surf
 
