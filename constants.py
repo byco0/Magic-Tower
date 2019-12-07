@@ -38,17 +38,20 @@ GREY = (64, 64, 64)
 YELLOW = (255, 255, 0)
 
 # set the screen constants
-screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-DISPLAY_SIZE_X = screen.get_width()
-DISPLAY_SIZE_Y = screen.get_height()
+#screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+#DISPLAY_SIZE_X = screen.get_width()
+#DISPLAY_SIZE_Y = screen.get_height()
+DISPLAY_SIZE_X = 1080
+DISPLAY_SIZE_Y = 608
 
 SCREEN_X = int(DISPLAY_SIZE_X/5*4)
 SCREEN_Y = DISPLAY_SIZE_Y
+screen = pygame.display.set_mode((int(DISPLAY_SIZE_X), DISPLAY_SIZE_Y))
 
 # set the monster popup screen size
 POPUP_X = SCREEN_X
 POPUP_Y = SCREEN_Y//2
-AVATAR = SCREEN_Y//6
+AVATAR = SCREEN_X//7
 
 # set the jump screen size
 JUMP_X = 750

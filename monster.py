@@ -19,23 +19,25 @@ class Monster(GeneralSquare):
         # Draw monster
         monsterimg = pygame.image.load(os.path.join(MONSTER_DIR, '{}.png'.format(self.ID)))
         monsterimg = pygame.transform.scale(self.image, (AVATAR, AVATAR))
-        surf.blit(monsterimg,((POPUP_X-2*AVATAR)/6,(POPUP_Y-AVATAR)/3))
-        pygame.draw.rect(surf, [179, 89, 0], [(POPUP_X-2*AVATAR)/6-20, (POPUP_Y-AVATAR)/3-20, AVATAR+40, AVATAR+40], 2)
-
+        mimg_X = POPUP_X/14
+        mimg_Y = (POPUP_Y-AVATAR)/3
+        surf.blit(monsterimg,(mimg_X,mimg_Y))
+        pygame.draw.rect(surf, [179, 89, 0], [mimg_X-10, mimg_Y-10, AVATAR+20, AVATAR+20], 2)
         monstername = font.render(self.NAME, True, WHITE)
-        surf.blit(monstername, ((POPUP_X-2*AVATAR)/6+AVATAR/2-monstername.get_width()/2,(POPUP_Y-AVATAR)/3+AVATAR+40))
+        surf.blit(monstername, (mimg_X+AVATAR/2-monstername.get_width()/2, mimg_Y+AVATAR+40))
 
 
         # Draw player
         playerimg = pygame.transform.scale(player.image, (AVATAR, AVATAR))
-        surf.blit(playerimg,((POPUP_X-2*AVATAR)*5/6+AVATAR,(POPUP_Y-AVATAR)/3))
-        pygame.draw.rect(surf, [179, 89, 0], [(POPUP_X-2*AVATAR)*5/6+AVATAR-20, (POPUP_Y-AVATAR)/3-20, AVATAR+40, AVATAR+40], 2)
-
+        pimg_X = POPUP_X*11/14
+        pimg_Y = (POPUP_Y-AVATAR)/3
+        surf.blit(playerimg,(pimg_X,pimg_Y))
+        pygame.draw.rect(surf, [179, 89, 0], [pimg_X-10, pimg_Y-10, AVATAR+20, AVATAR+20], 2)
         playername = font.render('Player', True, WHITE)
-        surf.blit(playername, ((POPUP_X-2*AVATAR)*5/6+3*AVATAR/2-playername.get_width()/2,(POPUP_Y-AVATAR)/3+AVATAR+40))
+        surf.blit(playername, (pimg_X+AVATAR/2-playername.get_width()/2,pimg_Y+AVATAR+40))
 
         while self.HP > 0:
-            pygame.draw.rect(surf,GREY,pygame.Rect(POPUP_X*3/10,20,(POPUP_X-2*AVATAR)*5/6+AVATAR-POPUP_X*3/10-20,POPUP_Y-40))
+            pygame.draw.rect(surf,GREY,pygame.Rect(POPUP_X*4/14,20,pimg_X-POPUP_X*4/14-10,POPUP_Y-40))
             # Draw VS
             fontbig = pygame.font.Font(None, 60)
             VS_text = fontbig.render('VS', True, WHITE)
@@ -46,14 +48,14 @@ class Monster(GeneralSquare):
             y = POPUP_Y/5
             for key in monsterdict:
                 state_text = font.render('{}:   {}'.format(key, monsterdict[key]), True, WHITE)
-                surf.blit(state_text, (POPUP_X*3/10, y))
+                surf.blit(state_text, (POPUP_X*4/14, y))
                 y += POPUP_Y/5
 
             # Player state
             y = POPUP_Y/5
             for key in ['HP','ATT','DEF']:
                 state_text = font.render('{}:   {}'.format(key, player.STATE[key]), True, WHITE)
-                surf.blit(state_text, (POPUP_X*3/5-30, y))
+                surf.blit(state_text, (POPUP_X*8/14, y))
                 y += POPUP_Y/5
 
             self.HP_update(player)
@@ -61,7 +63,7 @@ class Monster(GeneralSquare):
             # Display on screen
             screen.blit(surf, ((SCREEN_X*5/4-POPUP_X)/2,SCREEN_Y/6))
             pygame.display.flip()
-            pygame.time.wait(500)
+            pygame.time.wait(600)
 
 
     def HP_update(self, player):

@@ -225,16 +225,15 @@ while running:
                 while choosing:
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
-                            if event.key == pygame.K_UP:
-                                if  player.FLOOR > 1:
-                                    player.FLOOR -= 1
-                                    screen.blit(draw_jump(player, JUMP_X, JUMP_Y,  player.FLOOR-1),(SCREEN_X/4+(SCREEN_X-JUMP_X)/2,(SCREEN_Y-JUMP_Y)/2))
-                                    pygame.display.flip()
-                            elif event.key == pygame.K_DOWN:
-                                if  player.FLOOR < len(FLOORS):
-                                    player.FLOOR += 1
-                                    screen.blit(draw_jump(player, JUMP_X, JUMP_Y,  player.FLOOR-1),(SCREEN_X/4+(SCREEN_X-JUMP_X)/2,(SCREEN_Y-JUMP_Y)/2))
-                                    pygame.display.flip()
+                            if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                                if event.key == pygame.K_UP:
+                                    if  player.FLOOR > 1:
+                                        player.FLOOR -= 1                                    
+                                elif event.key == pygame.K_DOWN:
+                                    if  player.FLOOR < len(FLOORS):
+                                        player.FLOOR += 1
+                                screen.blit(draw_jump(player, JUMP_X, JUMP_Y,  player.FLOOR-1),(SCREEN_X/4+(SCREEN_X-JUMP_X)/2,(SCREEN_Y-JUMP_Y)/2))
+                                pygame.display.flip()
                             elif event.key == pygame.K_RETURN:
                                 choosing = False
             else:
