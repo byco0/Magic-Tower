@@ -35,10 +35,11 @@ class GeneralSquare(pygame.sprite.Sprite):
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREY = (64, 64, 64)
+YELLOW = (255, 255, 0)
 
 # set the screen constants
-DISPLAY_SIZE_X = 1920
-DISPLAY_SIZE_Y = 1080
+DISPLAY_SIZE_X = 960
+DISPLAY_SIZE_Y = 540
 
 SCREEN_X = int(DISPLAY_SIZE_X/5*4)
 SCREEN_Y = DISPLAY_SIZE_Y
@@ -48,6 +49,10 @@ screen = pygame.display.set_mode((int(DISPLAY_SIZE_X), DISPLAY_SIZE_Y))
 POPUP_X = SCREEN_X
 POPUP_Y = SCREEN_Y//2
 AVATAR = SCREEN_Y//6
+
+# set the jump screen size
+JUMP_X = 750
+JUMP_Y = 450
 
 # create sprite groups
 COLLISION_TYPE = pygame.sprite.Group()
