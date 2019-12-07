@@ -2,11 +2,10 @@ import pygame
 from constants import *
 from map import *
 
-
 class Player(GeneralSquare):
     # define collection
     KEY_COLLECTION = {'YK': 1, 'BK': 1, 'RK': 1}
-    STATE = {'HP' : 1000, 'ATT' : 10, 'DEF' : 10, 'GOLD' : 0, 'EXP' : 0, 'LEVEL' : 1}    
+    STATE = {'HP' : 1000, 'ATT' : 80, 'DEF' : 50, 'GOLD' : 0, 'EXP' : 0, 'LEVEL' : 1}    
     
     FLOOR = 1
     ID = 'default'
@@ -100,6 +99,33 @@ class Player(GeneralSquare):
                             self.FLOOR -= 1
                     i += 1
                     
+            if pygame.sprite.spritecollideany(self, MONSTER_TYPE):
+                i = 0
+                for key in overlay:
+                    try:                    
+                        if pygame.sprite.collide_rect(self, overlay[key]):
+                            # condition for ability to fight
+                            monster_ability = {'HP': overlay[key].HP, 'ATT': overlay[key].ATT, 'DEF': overlay[key].DEF}
+                            player_ability = {'HP': self.STATE['HP'], 'ATT': self.STATE['ATT'], 'DEF': self.STATE['DEF']}
+                            monster_minus = player_ability['ATT'] - monster_ability['DEF']  
+                            player_minus = monster_ability['ATT'] - player_ability['DEF']   
+                           
+                            while monster_ability['HP'] > 0 and player_ability['HP']>0:
+                                monster_ability['HP'] -= monster_minus
+                                player_ability['HP'] -= player_minus
+                                
+                            if monster_ability['HP'] <= 0:
+                                overlay[key].draw_popup(self)
+                                floor[int(i / 11)][int(i % 11)] = 0
+                                overlay[key].kill()
+                                overlay[key] = 0
+                            
+                    except:
+                        pass
+                            
+                i += 1
+                
+                
             self.rect[0:2] = old_position
         elif self.rect[0] < int(SCREEN_X / 13) or self.rect.right > int(SCREEN_X / 13 * 12) or self.rect[1] < int(SCREEN_Y / 13) or self.rect.bottom > int(SCREEN_Y / 13 * 12):
             self.rect[0:2] = old_position

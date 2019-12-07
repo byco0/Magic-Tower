@@ -34,10 +34,18 @@ class GeneralSquare(pygame.sprite.Sprite):
 # set some colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+GREY = (64, 64, 64)
 
-# set the screen size
+# set the screen constants
 SCREEN_X = 800
 SCREEN_Y = 600
+screen = pygame.display.set_mode((int(SCREEN_X+SCREEN_X/4), SCREEN_Y))
+
+
+# set the monster popup screen size
+POPUP_X = 900
+POPUP_Y = 300
+AVATAR = 100
 
 # create sprite groups
 COLLISION_TYPE = pygame.sprite.Group()
@@ -53,6 +61,7 @@ KEY_TYPE = pygame.sprite.Group()
 DIR = os.path.dirname(__file__)
 ITEM_DIR = os.path.join(DIR,'Item')
 NPC_DIR = os.path.join(DIR,'NPC')
+MONSTER_DIR = os.path.join(DIR,'Monster')
 
 ITEM_IMGS = []
 

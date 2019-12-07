@@ -3,7 +3,7 @@ import pygame
 from map import *
 from monster import *
 from player import *
-
+from constants import *
 
 def init_floor(level, struct):
     row = 0
@@ -153,12 +153,14 @@ def draw_stats(player, width, height):
         
     return surf
 
+
+
 pygame.init()
 pygame.font.init()
 player = Player('Player', SCREEN_X / 13, SCREEN_Y / 13)
 world_floors = fetch_floors()
 world_overlays = fetch_overlays(player)
-screen = pygame.display.set_mode((int(SCREEN_X+SCREEN_X/4), SCREEN_Y))
+
 surf1 = pygame.Surface((SCREEN_X, SCREEN_Y))
 #overlay = init_overlay(floor_overlays[player.FLOOR - 1], overlay_objects.copy(), player.FLOOR - 1)
 init_player(player, floor_overlays[player.FLOOR - 1], 1)
