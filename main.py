@@ -151,8 +151,11 @@ def draw_stats(player, width, height):
         surf.blit(state_text, (new_x, new_y-state_text.get_height()))
         new_y += height/14
     for key in player.KEY_COLLECTION:
-        state_text = font.render('{}: {}'.format(key, player.KEY_COLLECTION[key]), True, WHITE)
-        surf.blit(state_text, (new_x, new_y-state_text.get_height()))
+        state_text = font.render(': {}'.format(player.KEY_COLLECTION[key]), True, WHITE)
+        surf.blit(state_text, (new_x+width/4, new_y-state_text.get_height()/2))
+        img = pygame.image.load(KEY_IMGS[key])
+        img = pygame.transform.scale(img, (int(SCREEN_X/13+1), int(SCREEN_Y/13+1)))
+        surf.blit(img, (new_x-width/8, new_y-img.get_height()/2))
         new_y += height/14
         
     return surf
@@ -177,8 +180,8 @@ while running:
     draw_overlay(world_overlays[player.FLOOR - 1], surf1)
     draw_outside(OUTSIDE, surf1)
     player.draw(surf1)
-    screen.blit(surf1, (SCREEN_X/4,0))
-    screen.blit(draw_stats(player, SCREEN_X/4, SCREEN_Y), (0,0))
+    screen.blit(surf1, (DISPLAY_SIZE_X/5,0))
+    screen.blit(draw_stats(player, int(DISPLAY_SIZE_X/5), DISPLAY_SIZE_Y), (0,0))
     pygame.display.flip()
     temp = player.FLOOR - 1
     for event in pygame.event.get():

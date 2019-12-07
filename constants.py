@@ -19,7 +19,7 @@ class GeneralSquare(pygame.sprite.Sprite):
         self.image = pygame.image.load(os.path.join(DIR, '{}.png'.format(self.ID)))
         self.image = pygame.transform.scale(self.image, (int(width)+1, int(height)+1))
         self.rect = self.image.get_rect()
-        self.rect[2:] = (self.rect[2] - 5, self.rect[3] - 3)
+        self.rect[2:] = (self.rect[2] - self.rect[2]/4, self.rect[3] - self.rect[3]/4)
 
     def set_position(self, x, y):
         self.rect[0:2] = [x, y]
@@ -37,10 +37,12 @@ BLACK = (0, 0, 0)
 GREY = (64, 64, 64)
 
 # set the screen constants
-SCREEN_X = 800
-SCREEN_Y = 600
-screen = pygame.display.set_mode((int(SCREEN_X+SCREEN_X/4), SCREEN_Y))
+DISPLAY_SIZE_X = 1024
+DISPLAY_SIZE_Y = 720
 
+SCREEN_X = int(DISPLAY_SIZE_X/5*4)
+SCREEN_Y = int(DISPLAY_SIZE_Y)
+screen = pygame.display.set_mode((int(DISPLAY_SIZE_X), DISPLAY_SIZE_Y))
 
 # set the monster popup screen size
 POPUP_X = 900
@@ -72,6 +74,8 @@ NPC_IMGS = []
 
 for x in os.listdir(NPC_DIR):
     NPC_IMGS.append(os.path.join(NPC_DIR, x))
+
+KEY_IMGS = {'YK': os.path.join(ITEM_DIR, '16.png'), 'BK': os.path.join(ITEM_DIR, '17.png'), 'RK': os.path.join(ITEM_DIR, '18.png')}
 
 #dictionary of key to file locations
 KEYS = {'YK': ITEM_IMGS[3], 'BK': ITEM_IMGS[4], 'RK': ITEM_IMGS[5]}
