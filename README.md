@@ -6,7 +6,7 @@ Magic Tower is a game created using the Python library, Pygame. The aim of the g
 <h2>Requirements</h2>
 The following elements need to be installed:
 * Python 3.6 or above
-* Pygame 1.9.6
+* Pygame 1.9.6 or above
 
 
 *Note: The game may run on versions older than requirements, but functionality cannot be guaruanteed*
@@ -30,15 +30,15 @@ Right arrow | Move Right
 J           | Floor teleporter
 I           | Monster information for current floor
 Space       | Close monster information
-Enter       | Close NPC conversation
+Enter       | Close NPC conversation/Start game
 
 <h3>Stats</h3>
 
 * HP = Hitpoints = The amount of hitpoints (the amount of damage that can be received without dying)
 
-* ATK = Attack = The amount of base damage done
+* ATK = Attack = The base amount of damage done
 
-* DEF = Defence = The amount of base damage blocked
+* DEF = Defence = The base amount of damage blocked
 
 <h3>Battles</h3>
 
