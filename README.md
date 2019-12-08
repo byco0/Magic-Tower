@@ -8,6 +8,7 @@ The following elements need to be installed:
 * Python 3.6 or above
 * Pygame 1.9.6
 
+
 *Note: The game may run on versions older than requirements, but functionality cannot be guaruanteed*
 
 <h2>Instructions</h2>
@@ -16,7 +17,29 @@ The game requires strategy to ensure you do not run out of possible paths.
 
 You gain experience and gold from fighting monsters.
 
-If you cannot defeat a monster you will not be able to battle it. However, you can gain power by collecting certain items through the map and purchase it from some NPCs
+If you cannot defeat a monster you will not be able to battle it. However, you can gain power by collecting certain items through the map and purchase it from some NPCs.
 
 You need keys to open doors and these can be found throughout the world or purchased from NPCs.
+
+Key | Effect
+Up arrow | Move upwards
+Down arrow | Move downwards
+Left arrow | Move left
+Right arrow | Move Right
+J | Floor teleporter
+I | Monster information for current floor
+Space | Close monster information
+Enter | Close NPC conversation
+
+<h3>Stats</h3>
+* HP = Hitpoints = The amount of hitpoints (the amount of damage that can be received without dying)
+* ATK = Attack = The amount of base damage done
+* DEF = Defence = The amount of base damage blocked
+
+<h3>Battles</h3>
+* The battle is automatic and turn-based
+* Players attack first, unless the monster has a special ability
+* Each player turn the damage done to monsters is calculated by player attack points minus monster defence points (the player may not be able to damage the monster).
+* Each monster turn the damage received from monsters is calculated by monster attack points minus player defence points (the player can block all damage if their defence is higher than the monster's attack).
+* The battle continues until the monster's hitpoints equals zero.
 
