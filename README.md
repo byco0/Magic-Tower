@@ -21,19 +21,22 @@ If you cannot defeat a monster you will not be able to battle it. However, you c
 
 You need keys to open doors and these can be found throughout the world or purchased from NPCs.
 
-Key | Effect
-Up arrow | Move upwards
-Down arrow | Move downwards
-Left arrow | Move left
+Key         | Effect
+------------|---------------------------------------
+Up arrow    | Move upwards
+Down arrow  | Move downwards
+Left arrow  | Move left
 Right arrow | Move Right
-J | Floor teleporter
-I | Monster information for current floor
-Space | Close monster information
-Enter | Close NPC conversation
+J           | Floor teleporter
+I           | Monster information for current floor
+Space       | Close monster information
+Enter       | Close NPC conversation
 
 <h3>Stats</h3>
 * HP = Hitpoints = The amount of hitpoints (the amount of damage that can be received without dying)
+
 * ATK = Attack = The amount of base damage done
+
 * DEF = Defence = The amount of base damage blocked
 
 <h3>Battles</h3>
