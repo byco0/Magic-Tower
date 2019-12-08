@@ -182,6 +182,8 @@ def draw_jump(player, width, height, selected):
     for i in FLOORS:
         if i == selected:
             floor_text = font.render('Floor {}'.format(i+1), True, YELLOW)
+        elif i+1 > len(player.FLOOR_SET):
+            floor_text = font.render('Floor {}'.format(i+1), True, GREY)
         else:
             floor_text = font.render('Floor {}'.format(i+1), True, WHITE)
         surf.blit(floor_text, (x, y))
@@ -230,7 +232,7 @@ while running:
                                     if  player.FLOOR > 1:
                                         player.FLOOR -= 1                                    
                                 elif event.key == pygame.K_DOWN:
-                                    if  player.FLOOR < len(FLOORS):
+                                    if  player.FLOOR < len(FLOORS) and player.FLOOR < len(player.FLOOR_SET):
                                         player.FLOOR += 1
                                 screen.blit(draw_jump(player, JUMP_X, JUMP_Y,  player.FLOOR-1),(SCREEN_X/4+(SCREEN_X-JUMP_X)/2,(SCREEN_Y-JUMP_Y)/2))
                                 pygame.display.flip()

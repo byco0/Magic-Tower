@@ -8,6 +8,7 @@ class Player(GeneralSquare):
     STATE = {'HP' : 1000, 'ATT' : 80, 'DEF' : 50, 'GOLD' : 0, 'EXP' : 0, 'LEVEL' : 1}
 
     FLOOR = 1
+    FLOOR_SET = {FLOOR}
     ID = 'default'
 
     def update(self, pressed_key, overlay, floor):
@@ -94,9 +95,11 @@ class Player(GeneralSquare):
                     if type(overlay[key]) == StairUp:
                         if pygame.sprite.collide_rect(self, overlay[key]):
                             self.FLOOR += 1
+                            self.FLOOR_SET = self.FLOOR_SET | {self.FLOOR}
                     elif type(overlay[key]) == StairDown:
                         if pygame.sprite.collide_rect(self, overlay[key]):
                             self.FLOOR -= 1
+                            self.FLOOR_SET = self.FLOOR_SET | {self.FLOOR}
                     i += 1
 
             if pygame.sprite.spritecollideany(self, MONSTER_TYPE):
