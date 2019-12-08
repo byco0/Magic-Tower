@@ -9,48 +9,55 @@ class Monster(GeneralSquare):
     def add_to_group(self):
         COLLISION_TYPE.add(self)
         MONSTER_TYPE.add(self)
-        
-    def draw_popup(self, player):        
+
+    def draw_popup(self, player, soundfile):
         surf = pygame.Surface((POPUP_X, POPUP_Y))
         surf.fill(GREY)
-        pygame.draw.rect(surf, [179, 89, 0], [0, 0, POPUP_X, POPUP_Y], 4)
-        font = pygame.font.Font(None, 50)
-        
+        pygame.draw.rect(surf, ORANGE, [0, 0, POPUP_X, POPUP_Y], 6)
+        font = pygame.font.Font(None, int(AVATAR*2/7))
+
         # Draw monster
-        monster_img = pygame.transform.scale(self.image, (AVATAR, AVATAR))
-        surf.blit(monster_img, ((POPUP_X - 2 * AVATAR) / 6, (POPUP_Y - AVATAR) / 3))
-        pygame.draw.rect(surf, [179, 89, 0], [(POPUP_X - 2 * AVATAR) / 6 - 20, (POPUP_Y - AVATAR) / 3 - 20, AVATAR + 40, AVATAR + 40], 2)
-        
-        monster_name = font.render(self.NAME, True, WHITE)
-        surf.blit(monster_name, ((POPUP_X - 2 * AVATAR) / 6 + AVATAR / 2 - monster_name.get_width() / 2, (POPUP_Y - AVATAR) / 3 + AVATAR + 40))
-        
-        # Draw player 
-        player_img = pygame.transform.scale(player.image, (AVATAR, AVATAR))
-        surf.blit(player_img, ((POPUP_X - 2 * AVATAR) * 5 / 6 + AVATAR, (POPUP_Y - AVATAR) / 3))
-        pygame.draw.rect(surf, [179, 89, 0], [(POPUP_X - 2 * AVATAR) * 5 / 6 + AVATAR - 20, (POPUP_Y - AVATAR) / 3 - 20, AVATAR + 40, AVATAR + 40], 2)
-        
-        player_name = font.render('Player', True, WHITE)
-        surf.blit(player_name, ((POPUP_X - 2 * AVATAR) * 5 / 6 + 3 * AVATAR / 2 - player_name.get_width() / 2, (POPUP_Y-AVATAR) / 3 + AVATAR + 40))
+        monsterimg = pygame.transform.scale(self.image, (AVATAR, AVATAR))
+        mimg_X = POPUP_X/14
+        mimg_Y = (POPUP_Y-AVATAR)/3
+        surf.blit(monsterimg,(mimg_X,mimg_Y))
+        pygame.draw.rect(surf, ORANGE, [mimg_X-10, mimg_Y-10, AVATAR+20, AVATAR+20], 3)
+        monstername = font.render(self.NAME, True, WHITE)
+        surf.blit(monstername, (mimg_X+AVATAR/2-monstername.get_width()/2, mimg_Y+AVATAR+40))
+
+        # Draw player
+        playerimg = pygame.transform.scale(player.image, (AVATAR, AVATAR))
+        pimg_X = POPUP_X*11/14
+        pimg_Y = (POPUP_Y-AVATAR)/3
+        surf.blit(playerimg,(pimg_X,pimg_Y))
+        pygame.draw.rect(surf, ORANGE, [pimg_X-10, pimg_Y-10, AVATAR+20, AVATAR+20], 3)
+        playername = font.render('Player', True, WHITE)
+        surf.blit(playername, (pimg_X+AVATAR/2-playername.get_width()/2,pimg_Y+AVATAR+40))
+
+        # Add sound effects
+        effect = pygame.mixer.Sound(os.path.join(SOUND_DIR, soundfile))
+        effect.set_volume(0.8)
+        effect.play(-1)
 
         while self.HP > 0:
-            pygame.draw.rect(surf, GREY, pygame.Rect(POPUP_X * 3 / 10, 20, (POPUP_X - 2 * AVATAR) * 5 / 6 + AVATAR - POPUP_X * 3 / 10 - 20, POPUP_Y - 40))
+            pygame.draw.rect(surf, GREY, pygame.Rect(POPUP_X*4/14,20,pimg_X-POPUP_X*4/14-10,POPUP_Y-40))
             # Draw VS
-            font2 = pygame.font.Font(None, 140)
+            font2 = pygame.font.Font(None, AVATAR//2)
             VS_text = font2.render('VS', True, WHITE)
-            surf.blit(VS_text, (POPUP_X / 2 - 70, POPUP_Y / 2 - 50))
+            surf.blit(VS_text, (POPUP_X/2 - 60, POPUP_Y/2 - 55))
             # Monster state
             monster_dict = {'HP': self.HP, 'ATK': self.ATK, 'DEF': self.DEF}
             y = POPUP_Y / 5
             for key in monster_dict:
                 state_text = font.render('{}:   {}'.format(key, monster_dict[key]), True, WHITE)
-                surf.blit(state_text, (POPUP_X * 3 / 10, y))
+                surf.blit(state_text, (POPUP_X * 4/14, y))
                 y += POPUP_Y / 5
-            
+
             # Player state
             y = POPUP_Y / 5
             for key in ['HP', 'ATK', 'DEF']:
                 state_text = font.render('{}:   {}'.format(key, player.STATE[key]), True, WHITE)
-                surf.blit(state_text, (POPUP_X * 3 / 5 - 10, y))
+                surf.blit(state_text, (POPUP_X * 8/14, y))
                 y += POPUP_Y / 5
 
             # Display on screen
@@ -69,7 +76,8 @@ class Monster(GeneralSquare):
                 player_minus = 0
             player.STATE['HP'] -= player_minus
 
-        
+        effect.stop()
+
 class GreenSlime(Monster):
     NAME = 'Green Slime'
     ID = 0
@@ -142,7 +150,7 @@ class JuniorWizard(Monster):
 
 class BigBat(Monster):
     NAME = 'Big Bat'
-    ID = 7					
+    ID = 7
     HP = 150
     ATK = 65
     DEF = 30
@@ -152,7 +160,7 @@ class BigBat(Monster):
 
 class Ogre(Monster):
     NAME = 'Ogre'
-    ID = 8				
+    ID = 8
     HP = 300
     ATK = 75
     DEF = 45
@@ -162,7 +170,7 @@ class Ogre(Monster):
 
 class SkeletonCaptain(Monster):
     NAME = 'Skeleton Captain'
-    ID = 9					
+    ID = 9
     HP = 400
     ATK = 90
     DEF = 50
@@ -172,7 +180,7 @@ class SkeletonCaptain(Monster):
 
 class RockMonster(Monster):
     NAME = 'Rock Monster'
-    ID = 10					
+    ID = 10
     HP = 500
     ATK = 115
     DEF = 65
@@ -182,7 +190,7 @@ class RockMonster(Monster):
 
 class Magician(Monster):
     NAME = 'Magician'
-    ID = 11					
+    ID = 11
     HP = 250
     ATK = 120
     ATK2 = 100
@@ -193,7 +201,7 @@ class Magician(Monster):
 
 class JuniorGuard(Monster):
     NAME = 'Junior Guard'
-    ID = 12					
+    ID = 12
     HP = 450
     ATK = 150
     DEF = 90
@@ -203,7 +211,7 @@ class JuniorGuard(Monster):
 
 class RedBat(Monster):
     NAME = 'Red Bat'
-    ID = 13					
+    ID = 13
     HP = 550
     ATK = 160
     DEF = 90
@@ -213,7 +221,7 @@ class RedBat(Monster):
 
 class SeniorWizard(Monster):
     NAME = 'Senior Wizard'
-    ID = 14					
+    ID = 14
     HP = 100
     ATK = 200
     DEF = 110
@@ -223,7 +231,7 @@ class SeniorWizard(Monster):
 
 class SlimeKing(Monster):
     NAME = 'Slime King'
-    ID = 15					
+    ID = 15
     HP = 700
     ATK = 250
     DEF = 125
@@ -233,7 +241,7 @@ class SlimeKing(Monster):
 
 class WhiteWarrior(Monster):
     NAME = 'White Warrior'
-    ID = 16					
+    ID = 16
     HP = 1300
     ATK = 150
     ATK3 = 4
@@ -244,7 +252,7 @@ class WhiteWarrior(Monster):
 
 class GoldKnight(Monster):
     NAME = 'Gold Knight'
-    ID = 17					
+    ID = 17
     HP = 850
     ATK = 350
     DEF = 200
@@ -254,7 +262,7 @@ class GoldKnight(Monster):
 
 class RedMagician(Monster):
     NAME = 'Red Magician'
-    ID = 18					
+    ID = 18
     HP = 500
     ATK = 400
     ATK2 = 300
@@ -265,7 +273,7 @@ class RedMagician(Monster):
 
 class OgreSoldier(Monster):
     NAME = 'Ogre Soldier'
-    ID = 19					
+    ID = 19
     HP = 900
     ATK = 450
     DEF = 330
@@ -275,7 +283,7 @@ class OgreSoldier(Monster):
 
 class GhostGuard(Monster):
     NAME = 'Ghost Guard'
-    ID = 20					
+    ID = 20
     HP = 1250
     ATK = 500
     DEF = 400
@@ -285,7 +293,7 @@ class GhostGuard(Monster):
 
 class SeniorGuard(Monster):
     NAME = 'Senior Guard'
-    ID = 21					
+    ID = 21
     HP = 1500
     ATK = 560
     DEF = 460
@@ -295,7 +303,7 @@ class SeniorGuard(Monster):
 
 class Swordsman(Monster):
     NAME = 'Swordsman'
-    ID = 22					
+    ID = 22
     HP = 1200
     ATK = 620
     DEF = 520
@@ -305,7 +313,7 @@ class Swordsman(Monster):
 
 class GhostWarrior(Monster):
     NAME = 'Ghost Warrior'
-    ID = 23					
+    ID = 23
     HP = 2000
     ATK = 680
     DEF = 590
@@ -383,12 +391,12 @@ class ShadowWarrior(Monster):
     ATK = 1150
     DEF = 1050
     GOLD = 92
-    EXP = 80   
+    EXP = 80
 
 
 class BlackWarrior(Monster):
     NAME = 'Black Warrior'
-    ID = 28					
+    ID = 28
     HP = 1200
     ATK = 980
     DEF = 900
@@ -398,7 +406,7 @@ class BlackWarrior(Monster):
 
 class BlackWarrior2(Monster):
     NAME = 'Black Warrior 2'
-    ID = 28					
+    ID = 28
     HP = 1600
     ATK = 1306
     DEF = 1200
@@ -413,7 +421,7 @@ class BlackWarrior3(Monster):
     ATK = 2612
     DEF = 2400
     GOLD = 146
-    EXP = 125 
+    EXP = 125
 
 
 class RedDevil(Monster):
@@ -443,7 +451,7 @@ class RedDevil3(Monster):
     ATK = 2666
     DEF = 2666
     GOLD = 166
-    EXP = 166  
+    EXP = 166
 
 
 class Vampire(Monster):
@@ -473,7 +481,7 @@ class Vampire3(Monster):
     ATK = 3400
     DEF = 3000
     GOLD = 390
-    EXP = 343  
+    EXP = 343
 
 
 class Boss(Monster):

@@ -170,9 +170,32 @@ def draw_stats(player, width, height):
         surf.blit(wall2, (x, SCREEN_Y / 13 * y))
     return surf
 
+def draw_jump(player, width, height, selected):
+    surf = pygame.Surface((width, height))
+    pygame.draw.rect(surf, [179, 89, 0], [0, 0, width, height], 5)
+    font = pygame.font.Font(None, width//18)
+    title = font.render('FLOOR JUMP', True, WHITE)
+    surf.blit(title, (width/2-title.get_width()/2, height/10))
+    x = width/9
+    y = height/4
+    font = pygame.font.Font(None, width//23)
+    for i in FLOORS:
+        if i == selected:
+            floor_text = font.render('Floor {}'.format(i+1), True, YELLOW)
+        elif i+1 > len(player.FLOOR_SET):
+            floor_text = font.render('Floor {}'.format(i+1), True, GREY)
+        else:
+            floor_text = font.render('Floor {}'.format(i+1), True, WHITE)
+        surf.blit(floor_text, (x, y))
+        y += height/11
+        if i % 7 == 6:
+            x += width/3
+            y = height/4
+    return surf
 
 pygame.init()
 pygame.font.init()
+pygame.mixer.init()
 player = Player('Player', SCREEN_X / 13, SCREEN_Y / 13)
 init_player(player, floor_overlays[player.FLOOR - 1], 1)
 world_floors = fetch_floors()
@@ -181,6 +204,10 @@ surf1 = pygame.Surface((SCREEN_X, SCREEN_Y))
 add_all_to_group(world_floors[player.FLOOR - 1])
 add_all_to_group(world_overlays[player.FLOOR - 1])
 running = True
+
+# Add background music
+pygame.mixer.music.load(os.path.join(SOUND_DIR, 'background.mp3'))
+pygame.mixer.music.play(-1)
 
 while running:
     draw_floor(world_floors[player.FLOOR - 1], surf1)
@@ -197,6 +224,24 @@ while running:
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 running = False
+            elif event.key == pygame.K_j:
+                screen.blit(draw_jump(player, JUMP_X, JUMP_Y, player.FLOOR-1),(SCREEN_X/4+(SCREEN_X-JUMP_X)/2,(SCREEN_Y-JUMP_Y)/2))
+                pygame.display.flip()
+                choosing = True
+                while choosing:
+                    for event in pygame.event.get():
+                        if event.type == KEYDOWN:
+                            if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                                if event.key == pygame.K_UP:
+                                    if  player.FLOOR > 1:
+                                        player.FLOOR -= 1
+                                elif event.key == pygame.K_DOWN:
+                                    if  player.FLOOR < len(FLOORS) and player.FLOOR < len(player.FLOOR_SET):
+                                        player.FLOOR += 1
+                                screen.blit(draw_jump(player, JUMP_X, JUMP_Y,  player.FLOOR-1),(SCREEN_X/4+(SCREEN_X-JUMP_X)/2,(SCREEN_Y-JUMP_Y)/2))
+                                pygame.display.flip()
+                            elif event.key == pygame.K_RETURN:
+                                choosing = False
             else:
                 player.update(event.key, world_overlays[player.FLOOR - 1], floor_overlays[player.FLOOR - 1])
     if player.FLOOR - 1 != temp:
@@ -210,6 +255,7 @@ while running:
         add_all_to_group(world_floors[player.FLOOR - 1])
         add_all_to_group(world_overlays[player.FLOOR - 1])
 
+pygame.mixer.music.stop()
 remove_all_from_group(world_floors[player.FLOOR - 1])
 remove_all_from_group(world_overlays[player.FLOOR - 1])
 pygame.quit()
