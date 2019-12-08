@@ -6,7 +6,7 @@ Magic Tower is a game created using the Python library, Pygame. The aim of the g
 <h2>Requirements</h2>
 The following elements need to be installed:
 * Python 3.6 or above
-* Pygame 1.9.6 or above  
+* Pygame 1.9.6 or above\
 *Note: The game may run on versions older than requirements, but functionality cannot be guaruanteed*
 
 <h2>Instructions</h2>
