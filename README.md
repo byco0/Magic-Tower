@@ -23,14 +23,14 @@ You need keys to open doors and these can be found throughout the world or purch
 
 Key         | Effect
 ------------|---------------------------------------
- Up arrow   | Move upwards
- Down arrow | Move downwards
- Left arrow | Move left
+Up arrow    | Move upwards
+Down arrow  | Move downwards
+Left arrow  | Move left
 Right arrow | Move Right
-     J      | Floor teleporter
-     I      | Monster information for current floor
-   Space    | Close monster information
-   Enter    | Close NPC conversation
+J           | Floor teleporter
+I           | Monster information for current floor
+Space       | Close monster information
+Enter       | Close NPC conversation
 
 <h3>Stats</h3>
 
