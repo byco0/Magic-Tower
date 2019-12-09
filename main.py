@@ -329,7 +329,7 @@ def draw_start():
     surf.blit(start_text, (DISPLAY_SIZE_X / 2 - start_text.get_width() / 2, DISPLAY_SIZE_Y * 5 / 7))
     font = pygame.font.Font(None, DISPLAY_SIZE_X // 35)
     input_text = font.render('Please input your name:', True, ORANGE)
-    surf.blit(input_text, (DISPLAY_SIZE_X / 2 - input_text.get_width() / 2, DISPLAY_SIZE_Y * 3 / 7 + 50))
+    surf.blit(input_text, (DISPLAY_SIZE_X / 2 - input_text.get_width() / 2, DISPLAY_SIZE_Y * 3 / 7))
     return surf
 
 
