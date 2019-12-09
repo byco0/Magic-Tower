@@ -44,3 +44,11 @@ ESC         | Exit game
 
 * The battle continues until the monster's hitpoints equals zero.
 
+<h3>Monster information</h3>
+
+* The monster information menu lets you see the ATK, DEF and HP of a monster.
+
+* It also allows you to see the GOLD and EXP (experience) gained from a monster.
+
+* Finally it allows you to see how much HP you would lose from battle (if Loss shows ???, it means you cannot win) 
+
