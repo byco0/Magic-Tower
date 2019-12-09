@@ -43,7 +43,7 @@ class Monster(GeneralSquare):
 
         # Play continuous batte sound
         effect = pygame.mixer.Sound(os.path.join('Sound', 'fight.wav'))
-        effect.play()
+        effect.play(-1)
 
         while self.HP > 0:
             pygame.draw.rect(surf, GREY, pygame.Rect(POPUP_X * 3 / 10, 20, (POPUP_X - 2 * AVATAR) * 5 / 6 + AVATAR - POPUP_X * 3 / 10 - 20, POPUP_Y - 40))
