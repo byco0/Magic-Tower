@@ -417,8 +417,8 @@ while running:
                                 pygame.display.flip()
                             elif event.key == pygame.K_RETURN:
                                 choosing = False
-            else:
-                player.update(event.key, world_overlays[player.FLOOR - 1], world_overlays, world_floors)
+    keys = pygame.key.get_pressed()
+    player.update(keys, world_overlays[player.FLOOR - 1], world_overlays, world_floors)
     if player.FLOOR - 1 != temp:
         remove_all_from_group(world_floors[temp])
         remove_all_from_group(world_overlays[temp])

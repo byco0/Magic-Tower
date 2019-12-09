@@ -36,15 +36,15 @@ class Player(GeneralSquare):
         pygame.display.flip()
         pygame.time.wait(750)
 
-    def update(self, pressed_key, overlay, world_overlays, world_floors):
+    def update(self, pressed_keys, overlay, world_overlays, world_floors):
         old_position = self.rect[0:2]
-        if pressed_key == K_UP:
+        if pressed_keys[K_UP]:
             self.rect.move_ip(0, int(-SCREEN_Y / 13))
-        elif pressed_key == K_DOWN:
+        elif pressed_keys[K_DOWN]:
             self.rect.move_ip(0, int(SCREEN_Y / 13))
-        elif pressed_key == K_RIGHT:
+        elif pressed_keys[K_RIGHT]:
             self.rect.move_ip(int(SCREEN_X / 13), 0)
-        elif pressed_key == K_LEFT:
+        elif pressed_keys[K_LEFT]:
             self.rect.move_ip(int(-SCREEN_X / 13), 0)
 
         if pygame.sprite.spritecollideany(self, COLLISION_TYPE):
