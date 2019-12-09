@@ -1,11 +1,14 @@
-"""This module contains all monster classes and defines the stats of all monsters
-and handles the display of battles with monsters"""
+"""
+This module contains all monster classes and defines the stats of all monsters
+and handles the display of battles with monsters
+"""
 
 import pygame
 from constants import *
 
 
 class Monster(GeneralSquare):
+    """Main class for monster"""
     ATK2 = 0
     ATK3 = 0
 
@@ -15,28 +18,32 @@ class Monster(GeneralSquare):
 
     def stats_data(self):
         return {'HP': self.HP, 'ATK': self.ATK, 'DEF': self.DEF, 'GOLD': self.GOLD, 'EXP': self.EXP}
-        
-    def draw_popup(self, player, screen):        
+
+    def draw_popup(self, player, screen):
         surf = pygame.Surface((POPUP_X, POPUP_Y))
         surf.fill(GREY)
         pygame.draw.rect(surf, [179, 89, 0], [0, 0, POPUP_X, POPUP_Y], 4)
         font = pygame.font.Font(None, DISPLAY_SIZE_X // 40)
-        
+
         # Draw monster
         monster_img = pygame.transform.scale(self.image, (AVATAR, AVATAR))
         surf.blit(monster_img, ((POPUP_X - 2 * AVATAR) / 6, (POPUP_Y - AVATAR) / 3))
         pygame.draw.rect(surf, [179, 89, 0], [(POPUP_X - 2 * AVATAR) / 6 - 20, (POPUP_Y - AVATAR) / 3 - 20, AVATAR + 40, AVATAR + 40], 2)
-        
+
         monster_name = font.render(self.NAME, True, WHITE)
         surf.blit(monster_name, ((POPUP_X - 2 * AVATAR) / 6 + AVATAR / 2 - monster_name.get_width() / 2, (POPUP_Y - AVATAR) / 3 + AVATAR + 40))
-        
-        # Draw player 
+
+        # Draw player
         player_img = pygame.transform.scale(player.image, (AVATAR, AVATAR))
         surf.blit(player_img, ((POPUP_X - 2 * AVATAR) * 5 / 6 + AVATAR, (POPUP_Y - AVATAR) / 3))
         pygame.draw.rect(surf, [179, 89, 0], [(POPUP_X - 2 * AVATAR) * 5 / 6 + AVATAR - 20, (POPUP_Y - AVATAR) / 3 - 20, AVATAR + 40, AVATAR + 40], 2)
-        
+
         player_name = font.render(player.NAME, True, WHITE)
         surf.blit(player_name, ((POPUP_X - 2 * AVATAR) * 5 / 6 + 3 * AVATAR / 2 - player_name.get_width() / 2, (POPUP_Y-AVATAR) / 3 + AVATAR + 40))
+
+        # Play continuous batte sound
+        effect = pygame.mixer.Sound(os.path.join('Sound', 'fight.wav'))
+        effect.play()
 
         while self.HP > 0:
             pygame.draw.rect(surf, GREY, pygame.Rect(POPUP_X * 3 / 10, 20, (POPUP_X - 2 * AVATAR) * 5 / 6 + AVATAR - POPUP_X * 3 / 10 - 20, POPUP_Y - 40))
@@ -44,6 +51,7 @@ class Monster(GeneralSquare):
             font2 = pygame.font.Font(None, DISPLAY_SIZE_X // 13)
             VS_text = font2.render('VS', True, WHITE)
             surf.blit(VS_text, (POPUP_X / 2 - 70, POPUP_Y / 2 - 50))
+
             # Monster state
             monster_dict = {'HP': self.HP, 'ATK': self.ATK, 'DEF': self.DEF}
             y = POPUP_Y / 5
@@ -51,7 +59,7 @@ class Monster(GeneralSquare):
                 state_text = font.render('{}:   {}'.format(key, monster_dict[key]), True, WHITE)
                 surf.blit(state_text, (POPUP_X * 3 / 10, y))
                 y += POPUP_Y / 5
-            
+
             # Player state
             y = POPUP_Y / 5
             for key in ['HP', 'ATK', 'DEF']:
@@ -62,7 +70,7 @@ class Monster(GeneralSquare):
             # Display on screen
             screen.blit(surf, ((SCREEN_X * 5 / 4 - POPUP_X) / 2, SCREEN_Y / 6))
             pygame.display.flip()
-            pygame.time.wait(250)
+            pygame.time.wait(500)
 
             monster_minus = player.STATE['ATK'] - self.DEF
             self.HP -= monster_minus
@@ -75,7 +83,9 @@ class Monster(GeneralSquare):
                 player_minus = 0
             player.STATE['HP'] -= player_minus
 
-        
+        # Stop batte sound
+        effect.stop()
+
 class GreenSlime(Monster):
     NAME = 'Green Slime'
     ID = 0
@@ -148,7 +158,7 @@ class JuniorWizard(Monster):
 
 class BigBat(Monster):
     NAME = 'Big Bat'
-    ID = 7					
+    ID = 7
     HP = 150
     ATK = 65
     DEF = 30
@@ -158,7 +168,7 @@ class BigBat(Monster):
 
 class Ogre(Monster):
     NAME = 'Ogre'
-    ID = 8				
+    ID = 8
     HP = 300
     ATK = 75
     DEF = 45
@@ -168,7 +178,7 @@ class Ogre(Monster):
 
 class SkeletonCaptain(Monster):
     NAME = 'Skeleton Captain'
-    ID = 9					
+    ID = 9
     HP = 400
     ATK = 90
     DEF = 50
@@ -178,7 +188,7 @@ class SkeletonCaptain(Monster):
 
 class RockMonster(Monster):
     NAME = 'Rock Monster'
-    ID = 10					
+    ID = 10
     HP = 500
     ATK = 115
     DEF = 65
@@ -188,7 +198,7 @@ class RockMonster(Monster):
 
 class Magician(Monster):
     NAME = 'Magician'
-    ID = 11					
+    ID = 11
     HP = 250
     ATK = 120
     ATK2 = 100
@@ -199,7 +209,7 @@ class Magician(Monster):
 
 class JuniorGuard(Monster):
     NAME = 'Junior Guard'
-    ID = 12					
+    ID = 12
     HP = 450
     ATK = 150
     DEF = 90
@@ -209,7 +219,7 @@ class JuniorGuard(Monster):
 
 class RedBat(Monster):
     NAME = 'Red Bat'
-    ID = 13					
+    ID = 13
     HP = 550
     ATK = 160
     DEF = 90
@@ -219,7 +229,7 @@ class RedBat(Monster):
 
 class SeniorWizard(Monster):
     NAME = 'Senior Wizard'
-    ID = 14					
+    ID = 14
     HP = 100
     ATK = 200
     DEF = 110
@@ -229,7 +239,7 @@ class SeniorWizard(Monster):
 
 class SlimeKing(Monster):
     NAME = 'Slime King'
-    ID = 15					
+    ID = 15
     HP = 700
     ATK = 250
     DEF = 125
@@ -239,7 +249,7 @@ class SlimeKing(Monster):
 
 class WhiteWarrior(Monster):
     NAME = 'White Warrior'
-    ID = 16					
+    ID = 16
     HP = 1300
     ATK = 150
     ATK3 = 4
@@ -250,7 +260,7 @@ class WhiteWarrior(Monster):
 
 class GoldKnight(Monster):
     NAME = 'Gold Knight'
-    ID = 17					
+    ID = 17
     HP = 850
     ATK = 350
     DEF = 200
@@ -260,7 +270,7 @@ class GoldKnight(Monster):
 
 class RedMagician(Monster):
     NAME = 'Red Magician'
-    ID = 18					
+    ID = 18
     HP = 500
     ATK = 400
     ATK2 = 300
@@ -271,7 +281,7 @@ class RedMagician(Monster):
 
 class OgreSoldier(Monster):
     NAME = 'Ogre Soldier'
-    ID = 19					
+    ID = 19
     HP = 900
     ATK = 450
     DEF = 330
@@ -281,7 +291,7 @@ class OgreSoldier(Monster):
 
 class GhostGuard(Monster):
     NAME = 'Ghost Guard'
-    ID = 20					
+    ID = 20
     HP = 1250
     ATK = 500
     DEF = 400
@@ -291,7 +301,7 @@ class GhostGuard(Monster):
 
 class SeniorGuard(Monster):
     NAME = 'Senior Guard'
-    ID = 21					
+    ID = 21
     HP = 1500
     ATK = 560
     DEF = 460
@@ -301,7 +311,7 @@ class SeniorGuard(Monster):
 
 class Swordsman(Monster):
     NAME = 'Swordsman'
-    ID = 22					
+    ID = 22
     HP = 1200
     ATK = 620
     DEF = 520
@@ -311,7 +321,7 @@ class Swordsman(Monster):
 
 class GhostWarrior(Monster):
     NAME = 'Ghost Warrior'
-    ID = 23					
+    ID = 23
     HP = 2000
     ATK = 680
     DEF = 590
@@ -389,12 +399,12 @@ class ShadowWarrior(Monster):
     ATK = 1150
     DEF = 1050
     GOLD = 92
-    EXP = 80   
+    EXP = 80
 
 
 class BlackWarrior(Monster):
     NAME = 'Black Warrior'
-    ID = 28					
+    ID = 28
     HP = 1200
     ATK = 980
     DEF = 900
@@ -404,7 +414,7 @@ class BlackWarrior(Monster):
 
 class BlackWarrior2(Monster):
     NAME = 'Black Warrior 2'
-    ID = 28					
+    ID = 28
     HP = 1600
     ATK = 1306
     DEF = 1200
@@ -419,7 +429,7 @@ class BlackWarrior3(Monster):
     ATK = 2612
     DEF = 2400
     GOLD = 146
-    EXP = 125 
+    EXP = 125
 
 
 class RedDevil(Monster):
@@ -449,7 +459,7 @@ class RedDevil3(Monster):
     ATK = 2666
     DEF = 2666
     GOLD = 166
-    EXP = 166  
+    EXP = 166
 
 
 class Vampire(Monster):
@@ -479,7 +489,7 @@ class Vampire3(Monster):
     ATK = 3400
     DEF = 3000
     GOLD = 390
-    EXP = 343  
+    EXP = 343
 
 
 class Boss(Monster):
@@ -494,7 +504,7 @@ class Boss(Monster):
 
 def get_monster(obj):
     """function to return a class of the type passed in"""
-    
+
     # set monsters list
     MONSTER_LIST = [GreenSlime('Monster', SCREEN_X / 13, SCREEN_Y / 13),
                     RedSlime('Monster', SCREEN_X / 13, SCREEN_Y / 13),

@@ -1,5 +1,7 @@
-"""This module contains all item classes which defines the effects of the items
-and the message received upon collection"""
+"""
+This module contains all item classes which defines the effects of the items
+and the message received upon collection
+"""
 
 
 from map import *
@@ -280,7 +282,7 @@ class Staff(Item):
 
 def get_item(obj):
     """function to return a class of the type passed in"""
-    
+
     # set item list
     ITEM_LIST = [RedGem('Item', SCREEN_X / 13, SCREEN_Y / 13),
                  BlueGem('Item', SCREEN_X / 13, SCREEN_Y / 13),

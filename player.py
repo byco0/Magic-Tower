@@ -1,5 +1,7 @@
-"""This module contains the player class which defines the players abilities and
-interactions with the world and handles player movement"""
+"""
+This module contains the player class which defines the players abilities and
+interactions with the world and handles player movement
+"""
 
 
 import os
@@ -7,9 +9,9 @@ import pygame
 from map import *
 from constants import *
 
-#Main player class
-
 class Player(GeneralSquare):
+    """Main class for player"""
+    
     ID = 'default'
     NAME = ''
     STATE = {'LEVEL': 1, 'HP': 10000, 'ATK': 1000, 'DEF': 1000, 'GOLD': 0, 'EXP': 0}
@@ -21,10 +23,14 @@ class Player(GeneralSquare):
     WIN = False
 
     def playSound(self, file):
+        """function to play sound effect"""
+
         effect = pygame.mixer.Sound(os.path.join('Sound', file))
         effect.play()
 
     def showMessage(self, text, screen):
+        """ function to show message box on screen"""
+        
         width = SCREEN_X - 100
         height = SCREEN_Y // 7
         surf = pygame.Surface((width, height))
@@ -37,6 +43,8 @@ class Player(GeneralSquare):
         pygame.time.wait(750)
 
     def update(self, pressed_keys, overlay, world_overlays, world_floors, screen):
+        """function to update player interactions"""
+
         old_position = self.rect[0:2]
         if pressed_keys[K_UP]:
             self.rect.move_ip(0, int(-SCREEN_Y / 13))
@@ -48,6 +56,8 @@ class Player(GeneralSquare):
             self.rect.move_ip(int(-SCREEN_X / 13), 0)
 
         if pygame.sprite.spritecollideany(self, COLLISION_TYPE):
+
+            # If the player collide a door
             if pygame.sprite.spritecollideany(self, DOOR_TYPE):
                 for key in overlay:
                     if type(overlay[key]) == YellowDoor:
@@ -69,6 +79,7 @@ class Player(GeneralSquare):
                                 overlay[key].kill()
                                 overlay[key] = 0
 
+            # If the player collide a stair
             if pygame.sprite.spritecollideany(self, STAIR_TYPE):
                 for key in overlay:
                     if type(overlay[key]) == StairUp:
@@ -79,12 +90,13 @@ class Player(GeneralSquare):
                         if pygame.sprite.collide_rect(self, overlay[key]):
                             self.FLOOR -= 1
                             self.FLOOR_SET = self.FLOOR_SET | {self.FLOOR}
-                    
+
+            # If the player collide a monster
             if pygame.sprite.spritecollideany(self, MONSTER_TYPE):
                 for key in overlay:
-                    try:                    
+                    try:
                         if pygame.sprite.collide_rect(self, overlay[key]):
-                            # condition for ability to fight
+                            # Check condition for ability to fight
                             monster_ability = {'HP': overlay[key].HP, 'ATK': overlay[key].ATK, 'ATK2': overlay[key].ATK2, 'ATK3': overlay[key].ATK3, 'DEF': overlay[key].DEF}
                             player_ability = {'HP': self.STATE['HP'], 'ATK': self.STATE['ATK'], 'DEF': self.STATE['DEF']}
 
@@ -107,14 +119,14 @@ class Player(GeneralSquare):
                             while monster_ability['HP'] > 0 and player_ability['HP'] > 0:
                                 monster_ability['HP'] -= monster_minus
                                 player_ability['HP'] -= player_minus
-                                
+
+                            # If player wins
                             if monster_ability['HP'] <= 0:
                                 if monster_ability['ATK2'] != 0:
                                     self.STATE['HP'] -= monster_ability['ATK2']
                                 if monster_ability['ATK3'] != 0:
                                     self.STATE['HP'] -= self.STATE['HP'] // monster_ability['ATK3']
-                                overlay[key].draw_popup(self, screen)
-                                self.playSound('fight.wav')
+                                overlay[key].draw_popup(self, screen) # draw battle box
                                 self.STATE['GOLD'] += overlay[key].GOLD
                                 self.STATE['EXP'] += overlay[key].EXP
                                 if overlay[key].NAME == 'Boss':
@@ -125,6 +137,7 @@ class Player(GeneralSquare):
                     except AttributeError:
                         pass
 
+            # If the player collide an NPC
             if pygame.sprite.spritecollideany(self, NPC_TYPE):
                 i = 0
                 for key in overlay:
@@ -151,10 +164,12 @@ class Player(GeneralSquare):
                         pass
                     i += 1
 
+            # If the player collide an item
             if pygame.sprite.spritecollideany(self, ITEM_TYPE):
                 for key in overlay:
                     try:
                         if pygame.sprite.collide_rect(self, overlay[key]):
+                            self.playSound('pickup.wav')
                             if overlay[key].ID == 10:
                                 overlay[key].effect(world_overlays, world_floors)
                                 self.showMessage(overlay[key].message, screen)

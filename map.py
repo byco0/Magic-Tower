@@ -1,5 +1,7 @@
-"""This module defines all sprites for the map and holds the base data for
-constructing the game world"""
+"""
+This module defines all sprites for the map and holds the base data for
+constructing the game world
+"""
 
 from constants import *
 
@@ -142,7 +144,7 @@ OUTSIDE = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
-# 0 means wall, 1 means ground, 2 means star, 3 means lava
+# floor data: 0 means wall, 1 means ground, 2 means star, 3 means lava
 FLOOR1 = [[0, 2, 2, 2, 2, 1, 2, 2, 2, 2, 0],
           [0, 2, 2, 2, 2, 1, 2, 2, 2, 2, 0],
           [0, 2, 2, 2, 2, 1, 2, 2, 2, 2, 0],
@@ -437,6 +439,7 @@ FLOORS = {0: FLOOR1, 1: FLOOR2, 2: FLOOR3, 3: FLOOR4, 4: FLOOR5, 5: FLOOR6, 6: F
           9: FLOOR10, 10: FLOOR11, 11: FLOOR12, 12: FLOOR13, 13: FLOOR14, 14: FLOOR15, 15: FLOOR16, 16: FLOOR17,
           17: FLOOR18, 18: FLOOR19, 19: FLOOR20, 20: FLOOR21, 21: FLOOR22, 22: FLOOR23, 23: FLOOR24}
 
+# overlay data: starting with s for stairs, i for items, m for monsters; ending with D for doors, K for Keys
 floor1_overlay = [[0, 0, 0, 0, 0, 's2', 0, 0, 0, 0, 0],
                   [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0],
                   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

@@ -1,4 +1,5 @@
-"""Main module for NPC classes
+"""
+Main module for NPC classes
 
 This module contains all classes for NPC characters in the game. The classes contain the interaction function and
 details of the available options that the player will have when interacting.
@@ -14,6 +15,7 @@ from constants import *
 
 class NPC(GeneralSquare):
     """Base NPC class that defines the main interaction ability that a player has with a sprite"""
+    
     def add_to_group(self):
         COLLISION_TYPE.add(self)
         NPC_TYPE.add(self)
