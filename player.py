@@ -18,8 +18,8 @@ class Player(GeneralSquare):
     KEY_COLLECTION = {'Yellow Key': 1, 'Blue Key': 1, 'Red Key': 1}
     FLOOR = 1
     FLOOR_SET = {FLOOR} #storing floors have been through
-    COMPASS = True
-    ILLUSTRATION = True
+    COMPASS = False
+    ILLUSTRATION = False
     WIN = False
 
     def playSound(self, file):
