@@ -1,8 +1,5 @@
 <h1>Magic-Tower</h1>
 
-<h2>Introduction</h2>
-Magic Tower is a game created using the Python library, Pygame. The aim of the game is to defeat the final boss and save the princess. Along the way you will battle many monsters and gain much power, but will it be enough!
-
 <h2>Requirements</h2>
 The following elements need to be installed:
 * Python 3.6 or above
@@ -10,44 +7,18 @@ The following elements need to be installed:
 <br />
 *Note: The game may run on versions older than requirements, but functionality cannot be guaruanteed*
 
-<h2>Instructions</h2>
+<h2>Installation Instructions</h2>
 
-The game requires strategy to ensure you do not run out of possible paths. 
+Download and install Python from https://www.python.org/
 
-You gain experience and gold from fighting monsters.
+Install Pygame using Pip (automatically installed starting with Python 3.4)
 
-If you cannot defeat a monster you will not be able to battle it. However, you can gain power by collecting certain items through the map and purchase it from some NPCs.
+You can do this using the following code below:
 
-You need keys to open doors and these can be found throughout the world or purchased from NPCs.
+`python3 -m pip install pygame`
 
-Key         | Effect
-------------|---------------------------------------
-Up arrow    | Move upwards
-Down arrow  | Move downwards
-Left arrow  | Move left
-Right arrow | Move Right
-J           | Floor teleporter
-I           | Monster information for current floor
-Space       | Close monster information
-Enter       | Close NPC conversation/Start game
+See https://www.pygame.org/wiki/GettingStarted for further details
 
-<h3>Stats</h3>
+<h2>Executing game</h2>
 
-* HP = Hitpoints = The amount of hitpoints (the amount of damage that can be received without dying)
-
-* ATK = Attack = The base amount of damage done
-
-* DEF = Defence = The base amount of damage blocked
-
-<h3>Battles</h3>
-
-* The battle is automatic and turn-based
-
-* Players attack first, unless the monster has a special ability
-
-* Each player turn the damage done to monsters is calculated by player attack points minus monster defence points (the player may not be able to damage the monster).
-
-* Each monster turn the damage received from monsters is calculated by monster attack points minus player defence points (the player can block all damage if their defence is higher than the monster's attack).
-
-* The battle continues until the monster's hitpoints equals zero.
-
+Run main.py to play the game
