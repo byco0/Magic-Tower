@@ -9,6 +9,8 @@ from constants import *
 
 
 def init_floor(level, struct):
+    """function to initialise all floor sprites and positions
+       Needs to be passed a floor map and initialised dictionary to fill"""
     row = 0
     column = 0
 
@@ -16,6 +18,7 @@ def init_floor(level, struct):
         if column == 11:
             column = 0
             row += 1
+        #check what map datapoint represents and construct relevant class
         if level[row][column] == 0:
             struct[key] = Wall('Map', SCREEN_X / 13, SCREEN_Y / 13)
         elif level[row][column] == 1:
@@ -32,6 +35,8 @@ def init_floor(level, struct):
 
 
 def init_overlay(level, struct, floorNum):
+    """function to initialise all overlay sprites and positions
+       Needs to be passed a overlay map and initialised dictionary to fill"""
     row = 0
     column = 0
 
@@ -39,7 +44,8 @@ def init_overlay(level, struct, floorNum):
         if column == 11:
             column = 0
             row += 1
-
+            
+        #check what map datapoint represents and construct relevant class
         obj = str(level[row][column])
         if obj[0] == 'm':
             struct[key] = get_monster(int(obj[1:]))
@@ -105,6 +111,7 @@ def init_overlay(level, struct, floorNum):
 
 
 def init_player(player, level, init):
+    """function to initalise player to starting location"""
     for row in range(0, 11):
         for column in range(0, 11):
             if level[row][column] == init:
@@ -126,6 +133,7 @@ def draw_overlay(struct, surf):
 
 
 def draw_outside(struct, surf):
+    """function to draw the border around play area"""
     row = 0
     column = 0
     wall2 = pygame.image.load(os.path.join('Map', 'Wall2.png'))
@@ -141,6 +149,7 @@ def draw_outside(struct, surf):
 
 
 def add_all_to_group(objects):
+    """add all sprites in object to their relevant group"""
     for key in objects:
         try:
             objects[key].add_to_group()
@@ -149,6 +158,7 @@ def add_all_to_group(objects):
 
 
 def remove_all_from_group(objects):
+    """remove all sprites in object to their relevant group"""
     for key in objects:
         try:
             objects[key].kill()
@@ -157,6 +167,7 @@ def remove_all_from_group(objects):
 
 
 def fetch_floors():
+    """function to gather all sprites for all floors and return them"""
     floors = {}
     for key in FLOORS:
         floors[key] = init_floor(FLOORS[key], block_objects.copy())
@@ -164,6 +175,7 @@ def fetch_floors():
 
 
 def fetch_overlays():
+    """function to gather all sprites for all overlays and return them"""
     overlays = {}
     i = 1
     for key in floor_overlays:
@@ -173,6 +185,7 @@ def fetch_overlays():
 
 
 def draw_stats(player, width, height):
+    """draws the player stats to a surface and returns the surface"""
     surf = pygame.Surface((width, height))
     font = pygame.font.Font(None, DISPLAY_SIZE_X // 50)
     new_x = width / 2
@@ -206,6 +219,8 @@ def draw_stats(player, width, height):
 
 
 def draw_info(player):
+    """Draws stats for the monsters on the current world floor
+       Returns new surface"""
     surf = pygame.Surface((SCREEN_X, SCREEN_Y))
     surf.fill(GREY)
     pygame.draw.rect(surf, ORANGE, [0, 0, SCREEN_X, SCREEN_Y], 6)
@@ -241,6 +256,8 @@ def draw_info(player):
 
 
 def draw_jump(player, width, height, selected):
+    """draws the floor jump menu
+       Returns new surface"""
     surf = pygame.Surface((width, height))
     pygame.draw.rect(surf, ORANGE, [0, 0, width, height], 5)
     font = pygame.font.Font(None, width // 20)
@@ -266,6 +283,8 @@ def draw_jump(player, width, height, selected):
 
 
 def draw_start():
+    """Draws the start menu to a surface
+       Returns new surface"""
     surf = pygame.Surface((DISPLAY_SIZE_X, DISPLAY_SIZE_Y))
     # Add background
     wall = pygame.image.load(os.path.join('Map', 'Wall.png'))
@@ -292,6 +311,7 @@ def draw_start():
 
 
 def draw_input(surf, text):
+    """Draws the input text to the passed in surface"""
     w = DISPLAY_SIZE_X/3
     h = DISPLAY_SIZE_Y/10
     x = DISPLAY_SIZE_X / 2 - w / 2
