@@ -287,13 +287,13 @@ def draw_start():
     surf.blit(start_text, (DISPLAY_SIZE_X / 2 - start_text.get_width() / 2, DISPLAY_SIZE_Y * 5 / 7))
     font = pygame.font.Font(None, DISPLAY_SIZE_X // 35)
     input_text = font.render('Please input your name:', True, ORANGE)
-    surf.blit(input_text, (DISPLAY_SIZE_X / 2 - input_text.get_width() / 2, DISPLAY_SIZE_Y * 3 / 7 + 50))
+    surf.blit(input_text, (DISPLAY_SIZE_X / 2 - input_text.get_width() / 2, DISPLAY_SIZE_Y * 3 / 7))
     return surf
 
 
 def draw_input(surf, text):
-    w = 400
-    h = 70
+    w = DISPLAY_SIZE_X/3
+    h = DISPLAY_SIZE_Y/10
     x = DISPLAY_SIZE_X / 2 - w / 2
     y = DISPLAY_SIZE_Y * 4 / 7 - 50
     input_box = pygame.Rect(x, y, w, h)
@@ -333,15 +333,22 @@ pygame.display.flip()
 
 while starting:
     for event in pygame.event.get():
-        if event.type == KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                if input_text != '':
-                    player.NAME = input_text
-                    starting = False
-            elif event.key == pygame.K_BACKSPACE:
-                input_text = input_text[:-1]
+        if event.type == QUIT:
+            starting = False
+            running = False
+        elif event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                starting = False
+                running = False
             else:
-                input_text += event.unicode
+                if event.key == pygame.K_RETURN:
+                    if input_text != '':
+                        player.NAME = input_text
+                        starting = False
+                elif event.key == pygame.K_BACKSPACE:
+                    input_text = input_text[:-1]
+                else:
+                    input_text += event.unicode
         draw_input(screen, input_text)
         pygame.display.flip()
 
