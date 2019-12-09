@@ -1,5 +1,5 @@
-from constants import *
 from map import *
+from constants import *
 
 
 class Item(GeneralSquare):
@@ -10,6 +10,7 @@ class Item(GeneralSquare):
 
 class RedGem(Item):
     ID = 0
+    message = 'Gain a red gem. ATK + 3!'
 
     def effect(self, player):
         player.STATE['ATK'] += 3
@@ -18,6 +19,7 @@ class RedGem(Item):
 
 class BlueGem(Item):
     ID = 1
+    message = 'Gain a blue gem. DEF + 3!'
 
     def effect(self, player):
         player.STATE['DEF'] += 3
@@ -26,6 +28,7 @@ class BlueGem(Item):
 
 class RedPotion(Item):
     ID = 2
+    message = 'Gain a red potion. HP + 200!'
 
     def effect(self, player):
         player.STATE['HP'] += 200
@@ -34,6 +37,7 @@ class RedPotion(Item):
 
 class BluePotion(Item):
     ID = 3
+    message = 'Gain a blue potion. HP + 500!'
 
     def effect(self, player):
         player.STATE['HP'] += 500
@@ -42,6 +46,7 @@ class BluePotion(Item):
 
 class HolyWater(Item):
     ID = 4
+    message = 'Gain a holy water!'
 
     def effect(self, player):
         player.STATE['HP'] += (player.STATE['ATK'] + player.STATE['DEF']) // 2
@@ -50,40 +55,45 @@ class HolyWater(Item):
 
 class YellowKey(Item):
     ID = 5
+    message = 'Gain a yellow key!'
 
     def effect(self, player):
-        player.KEY_COLLECTION['YK'] += 1
+        player.KEY_COLLECTION['Yellow Key'] += 1
         return True
 
 
 class BlueKey(Item):
     ID = 6
+    message = 'Gain a blue key!'
 
     def effect(self, player):
-        player.KEY_COLLECTION['BK'] += 1
+        player.KEY_COLLECTION['Blue Key'] += 1
         return True
 
 
 class RedKey(Item):
     ID = 7
+    message = 'Gain a red key!'
 
     def effect(self, player):
-        player.KEY_COLLECTION['RK'] += 1
+        player.KEY_COLLECTION['Red Key'] += 1
         return True
 
 
 class AllKeys(Item):
     ID = 8
+    message = 'Gain all type keys!'
 
     def effect(self, player):
-        player.KEY_COLLECTION['YK'] += 1
-        player.KEY_COLLECTION['BK'] += 1
-        player.KEY_COLLECTION['RK'] += 1
+        player.KEY_COLLECTION['Yellow Key'] += 1
+        player.KEY_COLLECTION['Blue Key'] += 1
+        player.KEY_COLLECTION['Red Key'] += 1
         return True
 
 
 class Coin(Item):
     ID = 9
+    message = 'Gain a coin. GOLD + 300!'
 
     def effect(self, player):
         player.STATE['GOLD'] += 300
@@ -92,20 +102,29 @@ class Coin(Item):
 
 class Pickaxe(Item):
     ID = 10
+    message = 'Gain a pickaxe. Unlock path and stair in floor 19!'
 
-    def effect(self, player):
-        return True
+    def effect(self, world_overlays, world_floors):
+        world_overlays[18]['block_121'] = StairUp('Map', SCREEN_X / 13, SCREEN_Y / 13)
+        world_overlays[18]['block_121'].set_position(SCREEN_X / 13 + SCREEN_X / 13 * 10, SCREEN_Y / 13 + SCREEN_Y / 13 * 10)
+        world_floors[18]['block_94'] = Ground('Map', SCREEN_X / 13, SCREEN_Y / 13)
+        world_floors[18]['block_105'] = Ground('Map', SCREEN_X / 13, SCREEN_Y / 13)
+        world_floors[18]['block_94'].set_position(SCREEN_X / 13 + SCREEN_X / 13 * 5, SCREEN_Y / 13 + SCREEN_Y / 13 * 8)
+        world_floors[18]['block_105'].set_position(SCREEN_X / 13 + SCREEN_X / 13 * 5, SCREEN_Y / 13 + SCREEN_Y / 13 * 9)
 
 
 class Compass(Item):
     ID = 11
+    message = 'Gain a compass. Press J to teleport!'
 
     def effect(self, player):
+        player.COMPASS = True
         return True
 
 
 class Cross(Item):
     ID = 12
+    message = 'Gain a cross!'
 
     def effect(self, player):
         player.STATE['HP'] += player.STATE['HP'] // 3
@@ -116,13 +135,16 @@ class Cross(Item):
 
 class Illustration(Item):
     ID = 13
+    message = 'Gain an illustration. Press I to show monster details!'
 
     def effect(self, player):
+        player.ILLUSTRATION = True
         return True
 
 
 class SmallFeather(Item):
     ID = 14
+    message = 'Gain a small feather. LEVEL + 1!'
 
     def effect(self, player):
         player.STATE['LEVEL'] += 1
@@ -134,6 +156,7 @@ class SmallFeather(Item):
 
 class BigFeather(Item):
     ID = 15
+    message = 'Gain a big feather. LEVEL + 3!'
 
     def effect(self, player):
         player.STATE['LEVEL'] += 3
@@ -145,6 +168,7 @@ class BigFeather(Item):
 
 class Sword(Item):
     ID = 16
+    message = 'Gain a sword. ATK + 10!'
 
     def effect(self, player):
         player.STATE['ATK'] += 10
@@ -153,6 +177,7 @@ class Sword(Item):
 
 class Sword2(Item):
     ID = 17
+    message = 'Gain a sword 2. ATK + 30!'
 
     def effect(self, player):
         player.STATE['ATK'] += 30
@@ -161,6 +186,7 @@ class Sword2(Item):
 
 class Sword3(Item):
     ID = 18
+    message = 'Gain a sword 3. ATK + 70!'
 
     def effect(self, player):
         player.STATE['ATK'] += 70
@@ -169,17 +195,20 @@ class Sword3(Item):
 
 class Sword4(Item):
     ID = 19
+    message = 'Require 500 EXP to gain!'
 
     def effect(self, player):
         if player.STATE['EXP'] >= 500:
             player.STATE['ATK'] += 120
             player.STATE['EXP'] -= 500
+            self.message = 'Gain a sword 4. ATK + 120!'
             return True
         return False
 
 
 class Sword5(Item):
     ID = 20
+    message = 'Gain a sword 5. ATK + 150!'
 
     def effect(self, player):
         player.STATE['ATK'] += 150
@@ -188,6 +217,7 @@ class Sword5(Item):
 
 class Shield(Item):
     ID = 21
+    message = 'Gain a shield. DEF + 10!'
 
     def effect(self, player):
         player.STATE['DEF'] += 10
@@ -196,6 +226,7 @@ class Shield(Item):
 
 class Shield2(Item):
     ID = 22
+    message = 'Gain a shield 2. DEF + 30!'
 
     def effect(self, player):
         player.STATE['DEF'] += 30
@@ -204,6 +235,7 @@ class Shield2(Item):
 
 class Shield3(Item):
     ID = 23
+    message = 'Gain a shield 3. DEF + 85!'
 
     def effect(self, player):
         player.STATE['DEF'] += 85
@@ -212,17 +244,20 @@ class Shield3(Item):
 
 class Shield4(Item):
     ID = 24
+    message = 'Require 500 GOLD to gain!'
 
     def effect(self, player):
         if player.STATE['GOLD'] >= 500:
             player.STATE['DEF'] += 120
             player.STATE['GOLD'] -= 500
+            self.message = 'Gain a shield 4. DEF + 120!'
             return True
         return False
 
 
 class Shield5(Item):
     ID = 25
+    message = 'Gain a shield 5. DEF + 190!'
 
     def effect(self, player):
         player.STATE['DEF'] += 190
@@ -231,10 +266,11 @@ class Shield5(Item):
 
 class Staff(Item):
     ID = 26
+    message = 'Gain a staff. ATK + 700, DEF + 700!'
 
     def effect(self, player):
-        player.STATE['ATK'] += 500
-        player.STATE['DEF'] += 500
+        player.STATE['ATK'] += 700
+        player.STATE['DEF'] += 700
         return True
 
 

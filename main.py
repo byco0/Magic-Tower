@@ -3,6 +3,7 @@ import pygame
 from item import *
 from map import *
 from monster import *
+from npc import *
 from player import *
 from constants import *
 
@@ -63,6 +64,39 @@ def init_overlay(level, struct, floorNum):
             struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
         elif obj == 'MD':
             struct[key] = MagicDoor('Map', SCREEN_X / 13, SCREEN_Y / 13)
+            struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+        elif obj == 'Fairy':
+            struct[key] = Fairy('NPC', SCREEN_X / 13, SCREEN_Y / 13)
+            struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+        elif obj == 'Thief':
+            struct[key] = Thief('NPC', SCREEN_X / 13, SCREEN_Y / 13)
+            struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+        elif obj == 'Princess':
+            struct[key] = Princess('NPC', SCREEN_X / 13, SCREEN_Y / 13)
+            struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+        elif obj == 'GodL':
+            struct[key] = GodLeft('NPC', SCREEN_X / 13, SCREEN_Y / 13)
+            struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+        elif obj == 'GodM_1':
+            struct[key] = God1('NPC', SCREEN_X / 13, SCREEN_Y / 13)
+            struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+        elif obj == 'GodM_2':
+            struct[key] = God2('NPC', SCREEN_X / 13, SCREEN_Y / 13)
+            struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+        elif obj == 'GodR':
+            struct[key] = GodRight('NPC', SCREEN_X / 13, SCREEN_Y / 13)
+            struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+        elif obj == 'WM1':
+            struct[key] = WM1('NPC', SCREEN_X / 13, SCREEN_Y / 13)
+            struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+        elif obj == 'WM2':
+            struct[key] = WM2('NPC', SCREEN_X / 13, SCREEN_Y / 13)
+            struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+        elif obj == 'SM1':
+            struct[key] = SM1('NPC', SCREEN_X / 13, SCREEN_Y / 13)
+            struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
+        elif obj == 'SM2':
+            struct[key] = SM2('NPC', SCREEN_X / 13, SCREEN_Y / 13)
             struct[key].set_position(SCREEN_X / 13 + SCREEN_X / 13 * column, SCREEN_Y / 13 + SCREEN_Y / 13 * row)
 
         column += 1
@@ -140,7 +174,7 @@ def fetch_overlays():
 
 def draw_stats(player, width, height):
     surf = pygame.Surface((width, height))
-    font = pygame.font.Font(None, 40)
+    font = pygame.font.Font(None, DISPLAY_SIZE_X // 50)
     new_x = width / 2
     new_y = height / 7
     state_text = font.render('FLOOR: {}'.format(player.FLOOR), True, WHITE)
@@ -170,32 +204,113 @@ def draw_stats(player, width, height):
         surf.blit(wall2, (x, SCREEN_Y / 13 * y))
     return surf
 
+
+def draw_info(player):
+    surf = pygame.Surface((SCREEN_X, SCREEN_Y))
+    surf.fill(GREY)
+    pygame.draw.rect(surf, ORANGE, [0, 0, SCREEN_X, SCREEN_Y], 6)
+    font = pygame.font.Font(None, SCREEN_Y // 25)
+    x = SCREEN_X / 6
+    y = SCREEN_Y / 24
+    added = []
+    count = 0
+    for monster in MONSTER_TYPE:
+        if monster.NAME in added:
+            pass
+        else:
+            if monster.ATK <= player.STATE['DEF']:
+                loss = 0
+            elif player.STATE['ATK'] <= monster.DEF:
+                loss = '???'
+            else:
+                times = monster.HP // (player.STATE['ATK'] - monster.DEF)
+                loss = times * (monster.ATK - player.STATE['DEF'])
+                if loss > player.STATE['HP']:
+                    loss = '???'
+            position = (x - SCREEN_X // 13, y)
+            img = pygame.transform.scale(monster.image, (SCREEN_X // 13, SCREEN_Y // 13))
+            surf.blit(img, position)
+            stats = monster.stats_data()
+            text = font.render('{}:  {}    {}:  {}    {}:  {}    {}:  {}    {}:  {}    {}:  {}'.format('HP', stats['HP'], 'ATK', stats['ATK'], 'DEF', stats['DEF'], 'GOLD', stats['GOLD'], 'EXP', stats['EXP'], 'LOSS', loss), True, WHITE)
+            x2 = SCREEN_X / 2 - text.get_width() // 2
+            surf.blit(text, (x2 + 25, y + text.get_height() // 2 + 5))
+            y += SCREEN_Y / 10
+            count += 1
+        added.append(monster.NAME)
+    return surf
+
+
 def draw_jump(player, width, height, selected):
     surf = pygame.Surface((width, height))
-    pygame.draw.rect(surf, [179, 89, 0], [0, 0, width, height], 5)
-    font = pygame.font.Font(None, width//18)
-    title = font.render('FLOOR JUMP', True, WHITE)
-    surf.blit(title, (width/2-title.get_width()/2, height/10))
-    x = width/9
-    y = height/4
-    font = pygame.font.Font(None, width//23)
+    pygame.draw.rect(surf, ORANGE, [0, 0, width, height], 5)
+    font = pygame.font.Font(None, width // 20)
+    title = font.render('Floor Jump', True, WHITE)
+    surf.blit(title, (width / 2 - title.get_width() / 2, height / 10))
+    x = width / 9
+    y = height / 4
     for i in FLOORS:
-        if i == selected:
-            floor_text = font.render('Floor {}'.format(i+1), True, YELLOW)
-        elif i+1 > len(player.FLOOR_SET):
-            floor_text = font.render('Floor {}'.format(i+1), True, GREY)
+        if i > 21:
+            break
+        elif i == selected:
+            floor_text = font.render('Floor {}'.format(i + 1), True, YELLOW)
+        elif i + 1 > len(player.FLOOR_SET):
+            floor_text = font.render('Floor {}'.format(i + 1), True, GREY)
         else:
-            floor_text = font.render('Floor {}'.format(i+1), True, WHITE)
+            floor_text = font.render('Floor {}'.format(i + 1), True, WHITE)
         surf.blit(floor_text, (x, y))
-        y += height/11
+        y += height / 11
         if i % 7 == 6:
-            x += width/3
-            y = height/4
+            x += width / 3
+            y = height / 4
     return surf
+
+
+def draw_start():
+    surf = pygame.Surface((DISPLAY_SIZE_X, DISPLAY_SIZE_Y))
+    # Add background
+    wall = pygame.image.load(os.path.join('Map', 'Wall.png'))
+    wall = pygame.transform.scale(wall, (int(SCREEN_X / 13) + 1, int(SCREEN_Y / 13) + 1))
+    y1 = 0
+    y2 = int(SCREEN_Y / 13 * 12)
+    for x in range(17):
+        surf.blit(wall, (SCREEN_X / 13 * x, y1))
+        surf.blit(wall, (SCREEN_X / 13 * x, y2))
+    for x in [0, DISPLAY_SIZE_X - SCREEN_X / 13]:
+        for y in range(1, 12):
+            surf.blit(wall, (x, SCREEN_Y / 13 * y))
+    # Add text
+    font = pygame.font.Font(None, DISPLAY_SIZE_X // 14)
+    title = font.render('MAGIC TOWER', True, WHITE)
+    surf.blit(title, (DISPLAY_SIZE_X / 2 - title.get_width() / 2, DISPLAY_SIZE_Y / 5))
+    font = pygame.font.Font(None, DISPLAY_SIZE_X // 20)
+    start_text = font.render('START', True, YELLOW)
+    surf.blit(start_text, (DISPLAY_SIZE_X / 2 - start_text.get_width() / 2, DISPLAY_SIZE_Y * 5 / 7))
+    font = pygame.font.Font(None, DISPLAY_SIZE_X // 35)
+    input_text = font.render('Please input your name:', True, ORANGE)
+    surf.blit(input_text, (DISPLAY_SIZE_X / 2 - input_text.get_width() / 2, DISPLAY_SIZE_Y * 3 / 7 + 50))
+    return surf
+
+
+def draw_input(surf, text):
+    w = 400
+    h = 70
+    x = DISPLAY_SIZE_X / 2 - w / 2
+    y = DISPLAY_SIZE_Y * 4 / 7 - 50
+    input_box = pygame.Rect(x, y, w, h)
+    pygame.draw.rect(surf, BLACK, input_box)
+    font = pygame.font.Font(None, DISPLAY_SIZE_X // 30)
+    # Render the current text.
+    text_print = font.render(text, True, WHITE)
+    # Blit the text.
+    surf.blit(text_print, (x + 10, y + 10))
+    # Blit the input_box rect.
+    pygame.draw.rect(surf, WHITE, input_box, 2)
+
 
 pygame.init()
 pygame.font.init()
 pygame.mixer.init()
+clock = pygame.time.Clock()
 player = Player('Player', SCREEN_X / 13, SCREEN_Y / 13)
 init_player(player, floor_overlays[player.FLOOR - 1], 1)
 world_floors = fetch_floors()
@@ -203,11 +318,32 @@ world_overlays = fetch_overlays()
 surf1 = pygame.Surface((SCREEN_X, SCREEN_Y))
 add_all_to_group(world_floors[player.FLOOR - 1])
 add_all_to_group(world_overlays[player.FLOOR - 1])
+starting = True
 running = True
 
 # Add background music
-pygame.mixer.music.load(os.path.join(SOUND_DIR, 'background.mp3'))
+pygame.mixer.music.load(os.path.join('Sound', 'background.mp3'))
 pygame.mixer.music.play(-1)
+
+# Show start screen
+input_text = ''
+screen.blit(draw_start(), (0, 0))
+draw_input(screen, input_text)
+pygame.display.flip()
+
+while starting:
+    for event in pygame.event.get():
+        if event.type == KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                if input_text != '':
+                    player.NAME = input_text
+                    starting = False
+            elif event.key == pygame.K_BACKSPACE:
+                input_text = input_text[:-1]
+            else:
+                input_text += event.unicode
+        draw_input(screen, input_text)
+        pygame.display.flip()
 
 while running:
     draw_floor(world_floors[player.FLOOR - 1], surf1)
@@ -224,8 +360,20 @@ while running:
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 running = False
-            elif event.key == pygame.K_j:
-                screen.blit(draw_jump(player, JUMP_X, JUMP_Y, player.FLOOR-1),(SCREEN_X/4+(SCREEN_X-JUMP_X)/2,(SCREEN_Y-JUMP_Y)/2))
+            elif event.key == K_i and player.ILLUSTRATION:
+                screen.blit(draw_info(player), (DISPLAY_SIZE_X / 5, 0))
+                pygame.display.flip()
+                checking = True
+                while checking:
+                    for event in pygame.event.get():
+                        if event.type == KEYDOWN:
+                            if event.key == pygame.K_SPACE:
+                                checking = False
+                            else:
+                                screen.blit(draw_info(player), (DISPLAY_SIZE_X / 5, 0))
+                                pygame.display.flip()
+            elif event.key == K_j and player.FLOOR < 22 and player.COMPASS:
+                screen.blit(draw_jump(player, JUMP_X, JUMP_Y, player.FLOOR - 1), (SCREEN_X / 4 + (SCREEN_X - JUMP_X) / 2, (SCREEN_Y - JUMP_Y) / 2))
                 pygame.display.flip()
                 choosing = True
                 while choosing:
@@ -233,17 +381,17 @@ while running:
                         if event.type == KEYDOWN:
                             if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                                 if event.key == pygame.K_UP:
-                                    if  player.FLOOR > 1:
+                                    if player.FLOOR > 1:
                                         player.FLOOR -= 1
                                 elif event.key == pygame.K_DOWN:
-                                    if  player.FLOOR < len(FLOORS) and player.FLOOR < len(player.FLOOR_SET):
+                                    if player.FLOOR < 21 and player.FLOOR < len(player.FLOOR_SET):
                                         player.FLOOR += 1
-                                screen.blit(draw_jump(player, JUMP_X, JUMP_Y,  player.FLOOR-1),(SCREEN_X/4+(SCREEN_X-JUMP_X)/2,(SCREEN_Y-JUMP_Y)/2))
+                                screen.blit(draw_jump(player, JUMP_X, JUMP_Y, player.FLOOR - 1), (SCREEN_X / 4 + (SCREEN_X - JUMP_X) / 2, (SCREEN_Y - JUMP_Y) / 2))
                                 pygame.display.flip()
                             elif event.key == pygame.K_RETURN:
                                 choosing = False
             else:
-                player.update(event.key, world_overlays[player.FLOOR - 1], floor_overlays[player.FLOOR - 1])
+                player.update(event.key, world_overlays[player.FLOOR - 1], world_overlays, world_floors)
     if player.FLOOR - 1 != temp:
         remove_all_from_group(world_floors[temp])
         remove_all_from_group(world_overlays[temp])
@@ -254,8 +402,13 @@ while running:
             init_player(player, floor_overlays[player.FLOOR - 1], 2)
         add_all_to_group(world_floors[player.FLOOR - 1])
         add_all_to_group(world_overlays[player.FLOOR - 1])
+    # Defeat final boss, exit game
+    if player.WIN:
+        running = False
+    clock.tick(30)
 
-pygame.mixer.music.stop()
 remove_all_from_group(world_floors[player.FLOOR - 1])
 remove_all_from_group(world_overlays[player.FLOOR - 1])
+pygame.mixer.music.stop()
 pygame.quit()
+os._exit(0)

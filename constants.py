@@ -3,6 +3,8 @@ import os
 import pygame
 # import some keys from pygame.locals for easier access
 from pygame.locals import (
+    K_i,
+    K_j,
     K_UP,
     K_DOWN,
     K_LEFT,
@@ -47,12 +49,17 @@ SCREEN_Y = DISPLAY_SIZE_Y
 
 # set the monster popup screen size
 POPUP_X = SCREEN_X
-POPUP_Y = SCREEN_Y//2
-AVATAR = SCREEN_X//7
+POPUP_Y = SCREEN_Y // 2
+AVATAR = SCREEN_Y // 6
 
 # set the jump screen size
-JUMP_X = int(SCREEN_X*4/5) - 100
+JUMP_X = SCREEN_X // 5 * 4 - 100
 JUMP_Y = SCREEN_Y - 100
+
+# set the shop size
+SHOP_X = SCREEN_X // 5 * 4 - 100
+SHOP_Y = SCREEN_Y // 2
+MENU_OPTIONS = {49: 1, 50: 2, 51: 3}
 
 # create sprite groups
 COLLISION_TYPE = pygame.sprite.Group()
@@ -63,8 +70,7 @@ ITEM_TYPE = pygame.sprite.Group()
 NPC_TYPE = pygame.sprite.Group()
 PLAYER = pygame.sprite.Group()
 
-DIR = os.path.dirname(__file__)
-SOUND_DIR = os.path.join(DIR,'Sound')
-
 # key images
-KEY_IMGS = {'YK': os.path.join('Item', '5.png'), 'BK': os.path.join('Item', '6.png'), 'RK': os.path.join('Item', '7.png')}
+KEY_IMGS = {'Yellow Key': os.path.join('Item', '5.png'),
+            'Blue Key': os.path.join('Item', '6.png'),
+            'Red Key': os.path.join('Item', '7.png')}
