@@ -18,7 +18,7 @@ class NPC(GeneralSquare):
         COLLISION_TYPE.add(self)
         NPC_TYPE.add(self)
 
-    def action(self, player):
+    def action(self, player, screen):
         surf = pygame.Surface((SHOP_X, SHOP_Y))
         pygame.draw.rect(surf, ORANGE, [0, 0, SHOP_X, SHOP_Y], 5)
         font = pygame.font.Font(None, DISPLAY_SIZE_X // 40)

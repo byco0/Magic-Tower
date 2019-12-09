@@ -331,6 +331,7 @@ pygame.init()
 pygame.font.init()
 pygame.mixer.init()
 clock = pygame.time.Clock()
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 player = Player('Player', SCREEN_X / 13, SCREEN_Y / 13)
 init_player(player, floor_overlays[player.FLOOR - 1], 1)
 world_floors = fetch_floors()
@@ -418,7 +419,7 @@ while running:
                             elif event.key == pygame.K_RETURN:
                                 choosing = False
     keys = pygame.key.get_pressed()
-    player.update(keys, world_overlays[player.FLOOR - 1], world_overlays, world_floors)
+    player.update(keys, world_overlays[player.FLOOR - 1], world_overlays, world_floors, screen)
     if player.FLOOR - 1 != temp:
         remove_all_from_group(world_floors[temp])
         remove_all_from_group(world_overlays[temp])

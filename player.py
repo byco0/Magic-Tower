@@ -12,19 +12,19 @@ from constants import *
 class Player(GeneralSquare):
     ID = 'default'
     NAME = ''
-    STATE = {'LEVEL': 1, 'HP': 1000, 'ATK': 10, 'DEF': 10, 'GOLD': 0, 'EXP': 0}
-    KEY_COLLECTION = {'Yellow Key': 1, 'Blue Key': 1, 'Red Key': 1}
+    STATE = {'LEVEL': 1, 'HP': 10000, 'ATK': 1000, 'DEF': 1000, 'GOLD': 0, 'EXP': 0}
+    KEY_COLLECTION = {'Yellow Key': 100, 'Blue Key': 100, 'Red Key': 100}
     FLOOR = 1
     FLOOR_SET = {FLOOR}
-    COMPASS = False
-    ILLUSTRATION = False
+    COMPASS = True
+    ILLUSTRATION = True
     WIN = False
 
     def playSound(self, file):
         effect = pygame.mixer.Sound(os.path.join('Sound', file))
         effect.play()
 
-    def showMessage(self, text):
+    def showMessage(self, text, screen):
         width = SCREEN_X - 100
         height = SCREEN_Y // 7
         surf = pygame.Surface((width, height))
@@ -36,7 +36,7 @@ class Player(GeneralSquare):
         pygame.display.flip()
         pygame.time.wait(750)
 
-    def update(self, pressed_keys, overlay, world_overlays, world_floors):
+    def update(self, pressed_keys, overlay, world_overlays, world_floors, screen):
         old_position = self.rect[0:2]
         if pressed_keys[K_UP]:
             self.rect.move_ip(0, int(-SCREEN_Y / 13))
@@ -113,12 +113,12 @@ class Player(GeneralSquare):
                                     self.STATE['HP'] -= monster_ability['ATK2']
                                 if monster_ability['ATK3'] != 0:
                                     self.STATE['HP'] -= self.STATE['HP'] // monster_ability['ATK3']
-                                overlay[key].draw_popup(self)
+                                overlay[key].draw_popup(self, screen)
                                 self.playSound('fight.wav')
                                 self.STATE['GOLD'] += overlay[key].GOLD
                                 self.STATE['EXP'] += overlay[key].EXP
                                 if overlay[key].NAME == 'Boss':
-                                    self.showMessage('You have conquered the magic tower!')
+                                    self.showMessage('You have conquered the magic tower!', screen)
                                     self.WIN = True
                                 overlay[key].kill()
                                 overlay[key] = 0
@@ -131,21 +131,23 @@ class Player(GeneralSquare):
                     try:
                         if pygame.sprite.collide_rect(self, overlay[key]):
                             if overlay[key].ID == 'Fairy':
+                                print('Fairy')
                                 overlay[key].action(world_overlays)
-                                self.showMessage('Hi {}! Welcome to Magic Tower! Enjoy your game!'.format(self.NAME))
+                                print('Fairy2')
+                                self.showMessage('Hi {}! Welcome to Magic Tower! Enjoy your game!'.format(self.NAME), screen)
                                 if i == 93:
                                     overlay[key].kill()
                                     overlay[key] = 0
                             elif overlay[key].ID == 'Thief':
                                 overlay[key].action(world_overlays)
-                                self.showMessage('Thanks for saving me, {}! I will open the magic door in floor 3 for you!'.format(self.NAME))
+                                self.showMessage('Thanks for saving me, {}! I will open the magic door in floor 3 for you!'.format(self.NAME), screen)
                                 overlay[key].kill()
                                 overlay[key] = 0
                             elif overlay[key].ID == 'Princess':
-                                self.showMessage('You are my hero, {}! I will wait for you here until you defeat final boss!'.format(self.NAME))
+                                self.showMessage('You are my hero, {}! I will wait for you here until you defeat final boss!'.format(self.NAME), screen)
                             else:
-                                overlay[key].action(self)
-                    except:
+                                overlay[key].action(self, screen)
+                    except AttributeError:
                         pass
                     i += 1
 
@@ -155,15 +157,15 @@ class Player(GeneralSquare):
                         if pygame.sprite.collide_rect(self, overlay[key]):
                             if overlay[key].ID == 10:
                                 overlay[key].effect(world_overlays, world_floors)
-                                self.showMessage(overlay[key].message)
+                                self.showMessage(overlay[key].message, screen)
                                 overlay[key].kill()
                                 overlay[key] = 0
                             elif overlay[key].effect(self):
-                                self.showMessage(overlay[key].message)
+                                self.showMessage(overlay[key].message, screen)
                                 overlay[key].kill()
                                 overlay[key] = 0
                             else:
-                                self.showMessage(overlay[key].message)
+                                self.showMessage(overlay[key].message, screen)
                     except:
                         pass
 

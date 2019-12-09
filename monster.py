@@ -16,7 +16,7 @@ class Monster(GeneralSquare):
     def stats_data(self):
         return {'HP': self.HP, 'ATK': self.ATK, 'DEF': self.DEF, 'GOLD': self.GOLD, 'EXP': self.EXP}
         
-    def draw_popup(self, player):        
+    def draw_popup(self, player, screen):        
         surf = pygame.Surface((POPUP_X, POPUP_Y))
         surf.fill(GREY)
         pygame.draw.rect(surf, [179, 89, 0], [0, 0, POPUP_X, POPUP_Y], 4)

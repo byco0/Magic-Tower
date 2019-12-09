@@ -44,8 +44,8 @@ ORANGE = (179, 89, 0)
 
 # set the screen constants
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-DISPLAY_SIZE_X = screen.get_width()
-DISPLAY_SIZE_Y = screen.get_height()
+DISPLAY_SIZE_X = pygame.display.Info().current_w
+DISPLAY_SIZE_Y = pygame.display.Info().current_h
 SCREEN_X = DISPLAY_SIZE_X // 5 * 4
 SCREEN_Y = DISPLAY_SIZE_Y
 
