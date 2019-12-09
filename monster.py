@@ -493,6 +493,8 @@ class Boss(Monster):
 
 
 def get_monster(obj):
+    """function to return a class of the type passed in"""
+    
     # set monsters list
     MONSTER_LIST = [GreenSlime('Monster', SCREEN_X / 13, SCREEN_Y / 13),
                     RedSlime('Monster', SCREEN_X / 13, SCREEN_Y / 13),
