@@ -122,7 +122,7 @@ class Player(GeneralSquare):
                                     self.WIN = True
                                 overlay[key].kill()
                                 overlay[key] = 0
-                    except:
+                    except AttributeError:
                         pass
 
             if pygame.sprite.spritecollideany(self, NPC_TYPE):
@@ -166,7 +166,7 @@ class Player(GeneralSquare):
                                 overlay[key] = 0
                             else:
                                 self.showMessage(overlay[key].message, screen)
-                    except:
+                    except AttributeError:
                         pass
 
             self.rect[0:2] = old_position
