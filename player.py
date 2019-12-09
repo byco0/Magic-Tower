@@ -14,10 +14,10 @@ class Player(GeneralSquare):
     
     ID = 'default'
     NAME = ''
-    STATE = {'LEVEL': 1, 'HP': 10000, 'ATK': 1000, 'DEF': 1000, 'GOLD': 0, 'EXP': 0}
-    KEY_COLLECTION = {'Yellow Key': 100, 'Blue Key': 100, 'Red Key': 100}
+    STATE = {'LEVEL': 1, 'HP': 1000, 'ATK': 10, 'DEF': 10, 'GOLD': 0, 'EXP': 0}
+    KEY_COLLECTION = {'Yellow Key': 1, 'Blue Key': 1, 'Red Key': 1}
     FLOOR = 1
-    FLOOR_SET = {FLOOR}
+    FLOOR_SET = {FLOOR} #storing floors have been through
     COMPASS = True
     ILLUSTRATION = True
     WIN = False
