@@ -70,7 +70,7 @@ class Monster(GeneralSquare):
             # Display on screen
             screen.blit(surf, ((SCREEN_X * 5 / 4 - POPUP_X) / 2, SCREEN_Y / 6))
             pygame.display.flip()
-            pygame.time.wait(500)
+            pygame.time.wait(250)
 
             monster_minus = player.STATE['ATK'] - self.DEF
             self.HP -= monster_minus
