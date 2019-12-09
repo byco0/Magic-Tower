@@ -1,3 +1,6 @@
+"""This module defines all sprites for the map and holds the base data for
+constructing the game world"""
+
 from constants import *
 
 
@@ -58,7 +61,7 @@ class MagicDoor(Door):
     ID = 'Magic Door'
 
 
-# data structure for GeneralSquare
+# data structure for floor
 block_objects = {'block_1': '', 'block_2': '', 'block_3': '', 'block_4': '',
                  'block_5': '', 'block_6': '', 'block_7': '', 'block_8': '',
                  'block_9': '', 'block_10': '', 'block_11': '', 'block_12': '',
@@ -91,6 +94,7 @@ block_objects = {'block_1': '', 'block_2': '', 'block_3': '', 'block_4': '',
                  'block_117': '', 'block_118': '', 'block_119': '', 'block_120': '',
                  'block_121': ''}
 
+#data structure for overlay
 overlay_objects = {'block_1': '', 'block_2': '', 'block_3': '', 'block_4': '',
                    'block_5': '', 'block_6': '', 'block_7': '', 'block_8': '',
                    'block_9': '', 'block_10': '', 'block_11': '', 'block_12': '',
@@ -721,6 +725,7 @@ floor24_overlay = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                    [0, 0, 0, 0, 'i3', 'm27', 'i3', 0, 0, 0, 0],
                    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]]
 
+#overlays
 floor_overlays = {0: floor1_overlay, 1: floor2_overlay, 2: floor3_overlay, 3: floor4_overlay,
                   4: floor5_overlay, 5: floor6_overlay, 6: floor7_overlay, 7: floor8_overlay,
                   8: floor9_overlay, 9: floor10_overlay, 10: floor11_overlay, 11: floor12_overlay,

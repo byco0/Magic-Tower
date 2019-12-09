@@ -1,8 +1,13 @@
+"""This module contains the player class which defines the players abilities and
+interactions with the world and handles player movement"""
+
+
 import os
 import pygame
 from map import *
 from constants import *
 
+#Main player class
 
 class Player(GeneralSquare):
     ID = 'default'

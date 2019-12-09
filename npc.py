@@ -1,9 +1,19 @@
+"""Main module for NPC classes
+
+This module contains all classes for NPC characters in the game. The classes contain the interaction function and
+details of the available options that the player will have when interacting.
+
+All NPCs inherit their base properties from the class GeneralSquare, which in turn inherits its properties
+from pygame.sprite.Sprite class. Therefore, these NPC classes can be use the normal pygame.sprite.Sprite functions.
+"""
+
 import pygame
 from map import *
 from constants import *
 
 
 class NPC(GeneralSquare):
+    """Base NPC class that defines the main interaction ability that a player has with a sprite"""
     def add_to_group(self):
         COLLISION_TYPE.add(self)
         NPC_TYPE.add(self)

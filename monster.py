@@ -1,3 +1,6 @@
+"""This module contains all monster classes and defines the stats of all monsters
+and handles the display of battles with monsters"""
+
 import pygame
 from constants import *
 

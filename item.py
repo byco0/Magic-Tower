@@ -1,3 +1,7 @@
+"""This module contains all item classes which defines the effects of the items
+and the message received upon collection"""
+
+
 from map import *
 from constants import *
 
@@ -275,7 +279,7 @@ class Staff(Item):
 
 
 def get_item(obj):
-    # set monsters list
+    # set item list
     ITEM_LIST = [RedGem('Item', SCREEN_X / 13, SCREEN_Y / 13),
                  BlueGem('Item', SCREEN_X / 13, SCREEN_Y / 13),
                  RedPotion('Item', SCREEN_X / 13, SCREEN_Y / 13),

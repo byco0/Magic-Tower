@@ -15,7 +15,9 @@ from pygame.locals import (
 )
 
 
+#Base class that most sprites within the game are built upon
 class GeneralSquare(pygame.sprite.Sprite):
+    """main class that defines how most sprites should initialise and set position and draw themselves"""
     def __init__(self, DIR, width, height):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(os.path.join(DIR, '{}.png'.format(self.ID)))
